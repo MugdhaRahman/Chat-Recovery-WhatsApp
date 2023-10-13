@@ -49,7 +49,6 @@ class PermissionActivity : AppCompatActivity() {
             binding.btnHowToAllow.visibility = View.VISIBLE
         }
 
-
     }
 
     private fun setupOnClicks() {
