@@ -1,5 +1,6 @@
 package com.androvine.chatrecovery.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
@@ -55,6 +56,9 @@ class PermissionActivity : AppCompatActivity() {
         binding.btnAllow.setOnClickListener {
             if (!PermNotificationUtils.isNotificationPermissionGranted(this)) {
                 permNotificationUtils.showNotificationDialog()
+            } else {
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
             }
         }
 
