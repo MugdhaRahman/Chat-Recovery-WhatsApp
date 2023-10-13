@@ -9,6 +9,7 @@
 
 
     <ImageView
+        android:id="@+id/permissionImg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -60,6 +61,9 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_margin="20dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?selectableItemBackground"
             app:cardBackgroundColor="@color/colorPrimaryDark"
             app:cardCornerRadius="25dp">
 
@@ -79,6 +83,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?selectableItemBackground"
             android:text="How to Allow?"
             android:textColor="@color/SubTextColor"
             android:textSize="16sp"
