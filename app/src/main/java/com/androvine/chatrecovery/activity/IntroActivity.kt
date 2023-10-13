@@ -1,4 +1,4 @@
-package com.androvine.chatrecovery
+package com.androvine.chatrecovery.activity
 
 import android.content.Intent
 import android.os.Build
@@ -8,6 +8,8 @@ import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import com.androvine.chatrecovery.IntroUtils
+import com.androvine.chatrecovery.R
 import com.androvine.chatrecovery.databinding.ActivityIntroBinding
 
 class IntroActivity : AppCompatActivity() {

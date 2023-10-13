@@ -1,10 +1,13 @@
-package com.androvine.chatrecovery
+package com.androvine.chatrecovery.activity
 
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
+import com.androvine.chatrecovery.IntroUtils
+import com.androvine.chatrecovery.R
+import com.androvine.chatrecovery.utils.PermNotificationUtils
 
 class SplashScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,8 +20,13 @@ class SplashScreen : AppCompatActivity() {
                 startActivity(Intent(this, IntroActivity::class.java))
                 finish()
             } else {
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
+                if (!PermNotificationUtils.isNotificationPermissionGranted(this)) {
+                    startActivity(Intent(this, PermissionActivity::class.java))
+                    finish()
+                } else {
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()
+                }
             }
         }, 2000)
 

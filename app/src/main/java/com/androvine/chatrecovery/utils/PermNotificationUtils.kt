@@ -32,6 +32,7 @@ class PermNotificationUtils(private val activity: Activity) {
             }
             return false
         }
+
     }
 
     private val prefName = "notifyConsent"
