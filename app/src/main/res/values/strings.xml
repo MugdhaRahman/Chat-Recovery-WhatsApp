@@ -4,4 +4,8 @@
     <string name="intro_desc_1">Recover all deleted whatsapp messages</string>
     <string name="intro_title_2">Lorem Ispum</string>
     <string name="intro_desc_2">lorem kjnfjnvaji idcvhua ioavjoa</string>
+    <string name="title_consent_notification">Notification Permission Consent</string>
+    <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
+    <string name="des_consent_notification">This app needs notification listening permission \nto run its core functionality. Permission will be \nused only to:</string>
 </resources>
