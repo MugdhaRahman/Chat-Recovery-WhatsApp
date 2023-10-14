@@ -8,4 +8,6 @@
     <string name="accept">Accept</string>
     <string name="decline">Decline</string>
     <string name="des_consent_notification">This app needs notification listening permission \nto run its core functionality. Permission will be \nused only to:</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -25,7 +25,6 @@
         <package android:name="com.whatsapp" />
     </queries>
 
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -38,8 +37,12 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
-            android:name=".activity.PermissionActivity"
+            android:name=".activity.SettingsActivity"
             android:exported="false" />
+        <activity
+            android:name=".activity.PermissionActivity"
+            android:exported="false"
+            android:theme="@style/WhiteTheme" />
         <activity
             android:name=".activity.IntroActivity"
             android:exported="false"
@@ -66,7 +69,6 @@
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
         </service>
-
     </application>
 
 </manifest>
