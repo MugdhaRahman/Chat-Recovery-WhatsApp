@@ -38,18 +38,36 @@
 
 
     <TextView
+        android:layout_marginStart="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Step 1 : "
+        android:textColor="@color/textColor"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
+    <TextView
         style="@style/TextAppearance.Material3.TitleSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         android:gravity="center"
         android:lineSpacingExtra="7dp"
-        android:text="Step 1: Click Ok button to open \nNotification Access Settings"
+        android:text="Click Ok button to open \nNotification Access Settings"
         android:textColor="@color/textColor"
         android:textSize="14sp" />
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Step 2 : "
+        android:textColor="@color/textColor"
+        android:textSize="17sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/text"
@@ -58,11 +76,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:gravity="center"
         android:lineSpacingExtra="7dp"
-        android:text="Step 2: Find Chat Recovery in App \nnotifications settings and \nenable it"
+        android:text="Find Chat Recovery in App \nnotifications settings and \nenable it"
         android:textColor="@color/textColor"
         android:textSize="14sp" />
 
