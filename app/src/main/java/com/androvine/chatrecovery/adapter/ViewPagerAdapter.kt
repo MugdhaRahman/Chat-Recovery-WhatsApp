@@ -1,4 +1,4 @@
-package com.androvine.chatrecovery
+package com.androvine.chatrecovery.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

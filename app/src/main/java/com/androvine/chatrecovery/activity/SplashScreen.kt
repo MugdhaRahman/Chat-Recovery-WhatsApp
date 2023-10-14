@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
-import com.androvine.chatrecovery.IntroUtils
+import com.androvine.chatrecovery.utils.IntroUtils
 import com.androvine.chatrecovery.R
 import com.androvine.chatrecovery.utils.PermNotificationUtils
 

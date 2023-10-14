@@ -1,4 +1,4 @@
-package com.androvine.chatrecovery
+package com.androvine.chatrecovery.utils
 
 import android.content.Context
 import android.content.SharedPreferences

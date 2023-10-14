@@ -2,7 +2,7 @@ package com.androvine.chatrecovery.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.androvine.chatrecovery.ViewPagerAdapter
+import com.androvine.chatrecovery.adapter.ViewPagerAdapter
 import com.androvine.chatrecovery.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
