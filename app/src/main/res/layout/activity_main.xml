@@ -62,7 +62,7 @@
         app:badgeColor="#FF0000"
         app:cornerRadius="8dp"
         app:corners="top_left|top_right"
-        app:iconMargin="2dp"
+        app:iconMargin="8dp"
         app:iconSize="22dp"
         app:iconTint="@color/greyTint"
         app:iconTintActive="@color/white"
@@ -70,7 +70,7 @@
         app:indicatorRadius="8dp"
         app:itemPadding="8dp"
         app:menu="@menu/bottom_nav_menu"
-        app:sideMargins="2dp"
+        app:sideMargins="5dp"
         app:textColor="@color/white"
         app:textSize="12sp" />
 
