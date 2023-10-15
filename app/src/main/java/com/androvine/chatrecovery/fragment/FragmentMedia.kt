@@ -1,11 +1,19 @@
 package com.androvine.chatrecovery.fragment
 
+import android.app.Activity
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import com.androvine.chatrecovery.databinding.FragmentMediaBinding
+import com.androvine.chatrecovery.utils.BuildVersion
+import com.androvine.chatrecovery.utils.PermSAFUtils
+import com.androvine.chatrecovery.utils.PermStorageUtils
 
 class FragmentMedia : Fragment() {
 
@@ -13,13 +21,72 @@ class FragmentMedia : Fragment() {
         FragmentMediaBinding.inflate(layoutInflater)
     }
 
+    private lateinit var requestPermissionLauncher: ActivityResultLauncher<Intent>
+    private lateinit var permSAFUtils: PermSAFUtils
+    private lateinit var permStorageUtils: PermStorageUtils
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
 
+        setupIntentLauncher()
+
+        setupPermission()
+
 
         return binding.root
+    }
+
+    private fun checkPermissions() {
+
+        if (BuildVersion.isAndroidR()) {
+            if (PermSAFUtils.verifySAF(requireActivity())) {
+                binding.permissionLayout.visibility = View.GONE
+            } else {
+                binding.permissionLayout.visibility = View.VISIBLE
+            }
+        } else {
+            if (PermStorageUtils.isStoragePermissionGranted(requireActivity())) {
+                binding.permissionLayout.visibility = View.GONE
+            } else {
+                binding.permissionLayout.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    private fun setupPermission() {
+
+        binding.btnAllow.setOnClickListener {
+            if (BuildVersion.isAndroidR()) {
+                permSAFUtils.showSAFDialog()
+            } else {
+                permStorageUtils.askStoragePermission()
+            }
+        }
+
+    }
+
+    private fun setupIntentLauncher() {
+        requestPermissionLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                permSAFUtils.addSAFPermission(result.data!!)
+            } else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    permSAFUtils.showSAFDialog()
+                }
+            }
+        }
+        permSAFUtils = PermSAFUtils(requireActivity(), requestPermissionLauncher)
+        permStorageUtils = PermStorageUtils(requireActivity())
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        checkPermissions()
     }
 
 }
