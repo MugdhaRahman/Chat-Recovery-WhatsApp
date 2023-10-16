@@ -108,7 +108,7 @@
         android:layout_height="70dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:src="@drawable/ic_permission_notification" />
+        android:src="@drawable/ic_permission_storage" />
 
 
 </RelativeLayout>

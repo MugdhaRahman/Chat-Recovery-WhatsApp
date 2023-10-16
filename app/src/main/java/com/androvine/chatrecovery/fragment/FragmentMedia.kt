@@ -15,6 +15,7 @@ import com.androvine.chatrecovery.utils.BuildVersion
 import com.androvine.chatrecovery.utils.PermSAFUtils
 import com.androvine.chatrecovery.utils.PermStorageUtils
 
+@Suppress("DEPRECATION")
 class FragmentMedia : Fragment() {
 
     private val binding: FragmentMediaBinding by lazy {
@@ -26,14 +27,12 @@ class FragmentMedia : Fragment() {
     private lateinit var permStorageUtils: PermStorageUtils
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
 
         setupIntentLauncher()
 
         setupPermission()
-
 
         return binding.root
     }
@@ -65,6 +64,17 @@ class FragmentMedia : Fragment() {
             }
         }
 
+        permStorageUtils.setPermissionCallback(object : PermStorageUtils.PermissionCallback {
+            override fun onPermissionGranted() {
+                binding.permissionLayout.visibility = View.GONE
+            }
+
+            override fun onPermissionDenied() {
+
+            }
+        })
+
+
     }
 
     private fun setupIntentLauncher() {
@@ -88,5 +98,16 @@ class FragmentMedia : Fragment() {
         super.onResume()
         checkPermissions()
     }
+
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        permStorageUtils.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
 
 }
