@@ -2,12 +2,13 @@
     <string name="app_name">Chat Recovery</string>
     <string name="intro_title_1">Recover Messages</string>
     <string name="intro_desc_1">Recover all deleted whatsapp messages</string>
-    <string name="intro_title_2">Lorem Ispum</string>
-    <string name="intro_desc_2">lorem kjnfjnvaji idcvhua ioavjoa</string>
+    <string name="intro_title_2">Recover Media</string>
+    <string name="intro_desc_2">Recover all deleted whatsapp photos \nand videos</string>
     <string name="title_consent_notification">Notification Permission Consent</string>
     <string name="accept">Accept</string>
     <string name="decline">Decline</string>
     <string name="des_consent_notification">This app needs notification listening permission \nto run its core functionality. Permission will be \nused only to:</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="intro_title_3">See Overview</string>
+    <string name="intro_desc_3">See an overview of all the message, \nchat list and media.</string>
 </resources>

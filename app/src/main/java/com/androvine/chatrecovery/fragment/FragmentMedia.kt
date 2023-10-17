@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import com.androvine.chatrecovery.R
 import com.androvine.chatrecovery.databinding.FragmentMediaBinding
 import com.androvine.chatrecovery.utils.BuildVersion
 import com.androvine.chatrecovery.utils.PermSAFUtils
@@ -70,6 +71,10 @@ class FragmentMedia : Fragment() {
             }
 
             override fun onPermissionDenied() {
+                binding.imgPermission.setImageResource(R.drawable.img_permission_saf_2)
+                binding.tvPermission.text =
+                    "Storage permission is required to access media files \nplease try again."
+                binding.tvAllow.text = "Try Again"
 
             }
         })

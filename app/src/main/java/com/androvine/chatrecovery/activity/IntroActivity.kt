@@ -83,7 +83,7 @@ class IntroActivity : AppCompatActivity() {
 
         binding.topLayout.setBackgroundResource(R.drawable.intro_bg_2)
         binding.introDot.setImageResource(R.drawable.intro_dot_2)
-        binding.introImg.setImageResource(R.drawable.intro_img_1)
+        binding.introImg.setImageResource(R.drawable.intro_img_2)
 
         binding.introTitle.text = getString(R.string.intro_title_2)
         binding.introDesc.text = getString(R.string.intro_desc_2)
@@ -95,10 +95,10 @@ class IntroActivity : AppCompatActivity() {
 
         binding.topLayout.setBackgroundResource(R.drawable.intro_bg_3)
         binding.introDot.setImageResource(R.drawable.intro_dot_3)
-        binding.introImg.setImageResource(R.drawable.intro_img_1)
+        binding.introImg.setImageResource(R.drawable.intro_img_3)
 
-        binding.introTitle.text = getString(R.string.intro_title_2)
-        binding.introDesc.text = getString(R.string.intro_desc_2)
+        binding.introTitle.text = getString(R.string.intro_title_3)
+        binding.introDesc.text = getString(R.string.intro_desc_3)
 
         binding.btnForward.visibility = View.GONE
         binding.startBtn.visibility = View.VISIBLE
