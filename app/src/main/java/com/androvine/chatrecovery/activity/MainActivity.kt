@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.androvine.chatrecovery.R
 import com.androvine.chatrecovery.adapter.ViewPagerAdapter
 import com.androvine.chatrecovery.databinding.ActivityMainBinding
+import java.io.File
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,6 +25,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupBottomNav()
+
+
+        val internalStorageDir = this.filesDir
+
+        val largeIconDir = File(internalStorageDir, "avatars")
+        if (!largeIconDir.exists()) {
+            largeIconDir.mkdir()
+        }
+
+
 
     }
 
