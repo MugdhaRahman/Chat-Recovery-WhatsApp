@@ -1,7 +1,12 @@
 package com.androvine.chatrecovery.activity
 
 import android.annotation.SuppressLint
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.androvine.chatrecovery.R
 import com.androvine.chatrecovery.adapter.ViewPagerAdapter
@@ -20,6 +25,8 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -34,6 +41,9 @@ class MainActivity : AppCompatActivity() {
             largeIconDir.mkdir()
         }
 
+        val intentFilter = IntentFilter("new_item_message")
+        intentFilter.addAction("new_item_call")
+        registerReceiver(broadcastReceiver, intentFilter)
 
 
     }
@@ -74,6 +84,25 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    private val broadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            if (intent?.action == "new_item_message") {
+                Log.e("MainActivity", "newItemAdded Message")
+
+            }
+
+            if (intent?.action == "new_item_call") {
+                Log.e("MainActivity", "newItemAdded")
+
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(broadcastReceiver)
     }
 
 

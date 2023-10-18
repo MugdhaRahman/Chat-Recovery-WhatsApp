@@ -11,6 +11,7 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.Icon
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
+import android.util.Log
 import com.androvine.chatrecovery.db.CallDBHelper
 import com.androvine.chatrecovery.db.MessageDBHelper
 import com.androvine.chatrecovery.models.MessageModel
@@ -79,7 +80,15 @@ class NotificationService : NotificationListenerService() {
                 )
 
                 // save chat model to database
-                saveChatDetails(messageModel)
+                val messageDBHelper = MessageDBHelper(context)
+                messageDBHelper.addMessageItem(messageModel)
+                val intent = Intent("new_item_message")
+                sendBroadcast(intent)
+
+                Log.e(
+                    "NotificationService",
+                    "onNotificationPosted: " + messageModel.toString()
+                )
 
             }
 
@@ -100,7 +109,15 @@ class NotificationService : NotificationListenerService() {
                 )
 
                 // save chat model to database
-                saveCallDetails(messageModel)
+                val callDBHelper = CallDBHelper(context)
+                callDBHelper.addCallItem(messageModel)
+                val intent = Intent("new_item_call")
+                sendBroadcast(intent)
+
+                Log.e(
+                    "NotificationService",
+                    "onNotificationPosted: " + messageModel.toString()
+                )
             }
 
 
@@ -109,15 +126,6 @@ class NotificationService : NotificationListenerService() {
 
     }
 
-    private fun saveCallDetails(messageModel: MessageModel) {
-        val callDBHelper = CallDBHelper(context)
-        callDBHelper.addCallItem(messageModel)
-    }
-
-    private fun saveChatDetails(messageModel: MessageModel) {
-        val messageDBHelper = MessageDBHelper(context)
-        messageDBHelper.addMessageItem(messageModel)
-    }
 
     private fun Icon?.loadDrawables(context: Context): Drawable? {
         this ?: return null

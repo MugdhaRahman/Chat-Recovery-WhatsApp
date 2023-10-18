@@ -57,4 +57,5 @@ dependencies {
     implementation("com.airbnb.android:lottie:5.2.0")
     implementation("com.github.Genomoz:Lib-Bottom-Nav:0.1")
 
+
 }
