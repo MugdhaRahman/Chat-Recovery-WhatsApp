@@ -33,6 +33,8 @@ class FragmentMedia : Fragment() {
 
         setupIntentLauncher()
 
+        checkPermissions()
+
         setupPermission()
 
         return binding.root
