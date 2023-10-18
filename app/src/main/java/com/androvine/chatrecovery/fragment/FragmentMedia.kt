@@ -43,14 +43,18 @@ class FragmentMedia : Fragment() {
         if (BuildVersion.isAndroidR()) {
             if (PermSAFUtils.verifySAF(requireActivity())) {
                 binding.permissionLayout.visibility = View.GONE
+                binding.llMedia.visibility = View.VISIBLE
             } else {
                 binding.permissionLayout.visibility = View.VISIBLE
+                binding.llMedia.visibility = View.GONE
             }
         } else {
             if (PermStorageUtils.isStoragePermissionGranted(requireActivity())) {
                 binding.permissionLayout.visibility = View.GONE
+                binding.llMedia.visibility = View.VISIBLE
             } else {
                 binding.permissionLayout.visibility = View.VISIBLE
+                binding.llMedia.visibility = View.GONE
             }
         }
     }
@@ -68,6 +72,7 @@ class FragmentMedia : Fragment() {
         permStorageUtils.setPermissionCallback(object : PermStorageUtils.PermissionCallback {
             override fun onPermissionGranted() {
                 binding.permissionLayout.visibility = View.GONE
+                binding.llMedia.visibility = View.VISIBLE
             }
 
             override fun onPermissionDenied() {
