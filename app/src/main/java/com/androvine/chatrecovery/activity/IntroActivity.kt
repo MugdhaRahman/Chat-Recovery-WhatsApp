@@ -1,16 +1,22 @@
 package com.androvine.chatrecovery.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import com.androvine.chatrecovery.utils.IntroUtils
+import androidx.viewpager.widget.PagerAdapter
+import androidx.viewpager.widget.ViewPager
 import com.androvine.chatrecovery.R
 import com.androvine.chatrecovery.databinding.ActivityIntroBinding
+import com.androvine.chatrecovery.utils.IntroUtils
+import com.androvine.chatrecovery.utils.PermNotificationUtils
 
 class IntroActivity : AppCompatActivity() {
 
@@ -18,93 +24,149 @@ class IntroActivity : AppCompatActivity() {
         ActivityIntroBinding.inflate(layoutInflater)
     }
 
-    private var clickCount: Int = 0
+    private lateinit var layouts: IntArray
+
+    private lateinit var introUtils: IntroUtils
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        introUtils = IntroUtils(this)
 
+        setupWindow()
+
+        setUpLayouts()
+
+        setUpClickListeners()
+
+
+    }
+
+
+    private fun setupWindow() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.let {
                 it.hide(WindowInsets.Type.statusBars())
                 it.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
             }
         } else {
-            @Suppress("DEPRECATION")
-            window.setFlags(
+            @Suppress("DEPRECATION") window.setFlags(
                 WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
         }
 
-        setupForwardButton()
+    }
+
+    private fun setUpLayouts() {
+
+        layouts = intArrayOf(
+            R.layout.intro_screen_1, R.layout.intro_screen_2, R.layout.intro_screen_3
+        )
+
+        setUpFirstAndSecondPage()
 
 
-        binding.startBtn.setOnClickListener {
-            startActivity(Intent(this, PermissionActivity::class.java))
-            IntroUtils(this).setFirstTimeLaunch(false)
-        }
+        binding.viewPager.adapter = IntroAdapter(this, layouts)
+
+        binding.viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+
+            override fun onPageScrolled(
+                position: Int, positionOffset: Float, positionOffsetPixels: Int
+            ) {
+
+            }
+
+            override fun onPageSelected(position: Int) {
+
+                when (position) {
+                    0 -> setUpFirstAndSecondPage()
+                    1 -> setUpFirstAndSecondPage()
+                    2 -> setUpThirdPage()
+                }
+
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {
+
+            }
+
+
+        })
 
     }
 
+    private fun setUpClickListeners() {
 
-    private fun setupForwardButton() {
+        if (!introUtils.isFirstTimeLaunch()) {
+            goToHome()
+        }
 
-        binding.btnForward.setOnClickListener {
+        binding.startButton.setOnClickListener {
+            goToHome()
+        }
 
-            clickCount++
+        binding.lottieNext.setOnClickListener {
 
-            when (clickCount) {
-                1 -> showSecondScreen()
-                2 -> showThirdScreen()
-                else -> {
-                    clickCount = 0
-                    showFirstScreen()
-                }
+            if (binding.viewPager.currentItem == 0) {
+                binding.viewPager.setCurrentItem(1, true)
+            } else if (binding.viewPager.currentItem == 1) {
+                binding.viewPager.setCurrentItem(2, true)
             }
 
         }
 
     }
 
-    private fun showFirstScreen() {
+    private fun setUpFirstAndSecondPage() {
+        binding.startButton.visibility = View.GONE
+        binding.lottieNext.visibility = View.VISIBLE
+    }
 
-        binding.topLayout.setBackgroundResource(R.drawable.intro_bg_1)
-        binding.introDot.setImageResource(R.drawable.intro_dot_1)
-        binding.introImg.setImageResource(R.drawable.intro_img_1)
+    private fun setUpThirdPage() {
+        binding.startButton.visibility = View.VISIBLE
+        binding.lottieNext.visibility = View.GONE
+    }
 
-        binding.introTitle.text = getString(R.string.intro_title_1)
-        binding.introDesc.text = getString(R.string.intro_desc_1)
+    private fun goToHome() {
+        introUtils.setFirstTimeLaunch(false)
+
+        if (!PermNotificationUtils.isNotificationPermissionGranted(this)) {
+            startActivity(Intent(this, PermissionActivity::class.java))
+            finish()
+        } else {
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+        }
 
     }
 
-    private fun showSecondScreen() {
 
-        binding.topLayout.setBackgroundResource(R.drawable.intro_bg_2)
-        binding.introDot.setImageResource(R.drawable.intro_dot_2)
-        binding.introImg.setImageResource(R.drawable.intro_img_2)
+    class IntroAdapter(private val context: Context, private val layouts: IntArray) :
+        PagerAdapter() {
 
-        binding.introTitle.text = getString(R.string.intro_title_2)
-        binding.introDesc.text = getString(R.string.intro_desc_2)
+        override fun instantiateItem(container: ViewGroup, position: Int): Any {
+            val layoutInflater =
+                context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            val view = layoutInflater.inflate(layouts[position], container, false)
+            container.addView(view)
+            return view
+        }
 
+        override fun getCount(): Int {
+            return layouts.size
+        }
 
+        override fun isViewFromObject(view: View, `object`: Any): Boolean {
+            return view === `object`
+        }
+
+        override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
+            val view = `object` as View
+            container.removeView(view)
+        }
     }
-
-    private fun showThirdScreen() {
-
-        binding.topLayout.setBackgroundResource(R.drawable.intro_bg_3)
-        binding.introDot.setImageResource(R.drawable.intro_dot_3)
-        binding.introImg.setImageResource(R.drawable.intro_img_3)
-
-        binding.introTitle.text = getString(R.string.intro_title_3)
-        binding.introDesc.text = getString(R.string.intro_desc_3)
-
-        binding.btnForward.visibility = View.GONE
-        binding.startBtn.visibility = View.VISIBLE
-
-    }
-
 
 
 }

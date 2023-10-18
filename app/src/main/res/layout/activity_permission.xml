@@ -1,26 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundColor"
-    tools:context=".activity.PermissionActivity">
-
-
-    <ImageView
-        android:id="@+id/permissionImg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
-        android:src="@drawable/permission_img" />
+    android:orientation="vertical">
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
         android:orientation="vertical">
 
         <TextView
@@ -28,11 +19,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="15dp"
+            android:fontFamily="sans-serif-medium"
             android:gravity="center"
-            android:text="Allow notifications and never \nmiss a message"
+            android:text="Notification Access"
             android:textColor="@color/textColor"
-            android:textSize="22sp"
-            android:textStyle="bold" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/notificationDesc"
@@ -45,55 +38,85 @@
             android:textColor="@color/SubTextColor"
             android:textSize="14sp" />
 
-
     </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/permissionImg"
+        android:layout_width="92dp"
+        android:layout_height="92dp"
+        android:layout_gravity="center"
+        android:src="@drawable/permission_img"
+        tools:ignore="ContentDescription" />
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="80dp"
+        android:layout_height="0dp"
+        android:layout_weight="1.3"
+        android:gravity="bottom|center"
         android:orientation="vertical">
 
-        <androidx.cardview.widget.CardView
+
+        <TextView
+            android:id="@+id/permissionDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="60dp"
+            android:gravity="center"
+            android:text="Please allow notification access to \nchat recovery to recover all the message."
+            android:textColor="@color/textColorSecondary"
+            android:textSize="14sp" />
+
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnAllow"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_margin="20dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="?selectableItemBackground"
-            app:cardBackgroundColor="@color/colorPrimaryDark"
-            app:cardCornerRadius="25dp">
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="30dp"
+            android:fontFamily="sans-serif-medium"
+            android:padding="15dp"
+            android:text="Allow Access"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:cornerRadius="30dp" />
 
-            <TextView
-                android:id="@+id/btnAllowText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Ok"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold" />
 
-        </androidx.cardview.widget.CardView>
+        <TextView
+            android:id="@+id/appSettings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:padding="15dp"
+            android:text="App Settings"
+            android:textColor="@color/textGrey"
+            android:textSize="16sp" />
+
 
         <TextView
             android:id="@+id/btnHowToAllow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="?selectableItemBackground"
-            android:text="How to Allow?"
-            android:textColor="@color/SubTextColor"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="How to allow access"
+            android:textColor="@color/linkColor"
+            android:textSize="14sp" />
 
     </LinearLayout>
 
 
-</RelativeLayout>
+</LinearLayout>

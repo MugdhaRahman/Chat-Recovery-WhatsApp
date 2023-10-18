@@ -38,7 +38,7 @@ class PermissionActivity : AppCompatActivity() {
             binding.permissionImg.setImageResource(R.drawable.permission_done_img)
             binding.notificationTitle.text = "We’re ready to go"
             binding.notificationDesc.text = "Let’s recover some deleted message."
-            binding.btnAllowText.text = "Get Started"
+            binding.btnAllow.text = "Get Started"
             binding.btnHowToAllow.visibility = View.GONE
 
         } else {
@@ -46,7 +46,7 @@ class PermissionActivity : AppCompatActivity() {
             binding.notificationTitle.text = "Allow notifications and never \nmiss a message"
             binding.notificationDesc.text =
                 "allow notification and chat recovery will \nnrecover all the message for you.\nYou can see all the deleted and unseen \nmessage."
-            binding.btnAllowText.text = "Ok"
+            binding.btnAllow.text = "Ok"
             binding.btnHowToAllow.visibility = View.VISIBLE
         }
 

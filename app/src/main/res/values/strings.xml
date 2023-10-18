@@ -11,4 +11,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="intro_title_3">See Overview</string>
     <string name="intro_desc_3">See an overview of all the message, \nchat list and media.</string>
+
+    <string name="let_s_start">Let\'s Start</string>
+
 </resources>
