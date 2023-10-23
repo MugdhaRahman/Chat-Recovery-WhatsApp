@@ -13,9 +13,11 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.androvine.chatrecovery.R
 import com.androvine.chatrecovery.databinding.ActivityPermissionBinding
+import com.androvine.chatrecovery.databinding.BottomsheetPermisssionBinding
 import com.androvine.chatrecovery.permissionMVVM.PermissionRepository
 import com.androvine.chatrecovery.permissionMVVM.PermissionStatus
 import com.androvine.chatrecovery.permissionMVVM.PermissionViewModel
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -33,7 +35,7 @@ class PermissionActivity : AppCompatActivity() {
 
     // permission intent launcher
     private val permissionIntentLauncher = registerForActivityResult(
-    ActivityResultContracts.StartActivityForResult()
+        ActivityResultContracts.StartActivityForResult()
     ) { _ ->
         if (permissionRepository.hasNotificationPermission()) {
             viewModel.handleNotificationPermissionResult(true)
@@ -103,6 +105,32 @@ class PermissionActivity : AppCompatActivity() {
             }
         }
 
+        binding.btnHowToAllow.setOnClickListener {
+            showBottomSheetHowTo()
+        }
+
+    }
+
+    private fun showBottomSheetHowTo() {
+
+        val dialog = BottomSheetDialog(this)
+        val binding: BottomsheetPermisssionBinding =
+            BottomsheetPermisssionBinding.inflate(layoutInflater)
+        dialog.setContentView(binding.root)
+        dialog.window!!.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.window!!.setLayout(
+            android.widget.FrameLayout.LayoutParams.MATCH_PARENT,
+            android.widget.FrameLayout.LayoutParams.WRAP_CONTENT
+        )
+        dialog.setCancelable(true)
+
+        binding.btnDismiss.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
+
+
     }
 
     private fun deniedUI() {
@@ -147,7 +175,7 @@ class PermissionActivity : AppCompatActivity() {
         binding.permissionImg.setImageResource(R.drawable.permission_img)
         binding.permissionDescription.text =
             "Notification access is required to run the apps core functionality. Permission will be used for monitoring and storing your deleted messages."
-       binding.checkboxPermission.visibility = View.VISIBLE
+        binding.checkboxPermission.visibility = View.VISIBLE
         binding.checkboxPermission.text = "I agree to allow notification access"
         binding.btnAllow.text = "Allow Access"
         binding.btnPrivacyPolicy.text = "Privacy Policy"
@@ -157,7 +185,6 @@ class PermissionActivity : AppCompatActivity() {
         binding.btnHowToAllow.visibility = View.VISIBLE
 
     }
-
 
 
     override fun dispatchTouchEvent(event: MotionEvent): Boolean {
