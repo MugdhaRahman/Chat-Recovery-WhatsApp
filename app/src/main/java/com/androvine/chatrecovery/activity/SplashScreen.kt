@@ -5,11 +5,16 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
-import com.androvine.chatrecovery.utils.IntroUtils
 import com.androvine.chatrecovery.R
-import com.androvine.chatrecovery.utils.PermNotificationUtils
+import com.androvine.chatrecovery.permissionMVVM.PermissionRepository
+import com.androvine.chatrecovery.utils.IntroUtils
+import org.koin.android.ext.android.inject
 
 class SplashScreen : AppCompatActivity() {
+
+
+    private val permissionRepository: PermissionRepository by inject()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
@@ -20,7 +25,7 @@ class SplashScreen : AppCompatActivity() {
                 startActivity(Intent(this, IntroActivity::class.java))
                 finish()
             } else {
-                if (!PermNotificationUtils.isNotificationPermissionGranted(this)) {
+                if (!permissionRepository.hasNotificationPermission()) {
                     startActivity(Intent(this, PermissionActivity::class.java))
                     finish()
                 } else {
@@ -32,4 +37,6 @@ class SplashScreen : AppCompatActivity() {
 
 
     }
+
+
 }

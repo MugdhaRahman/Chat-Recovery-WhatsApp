@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight=".8"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -22,7 +22,7 @@
             android:layout_marginBottom="15dp"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
-            android:text="Notification Access"
+            android:text="We need Notification Access"
             android:textColor="@color/textColor"
             android:textSize="18sp" />
 
@@ -31,9 +31,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginStart="40dp"
             android:layout_marginTop="10dp"
+            android:layout_marginEnd="40dp"
             android:gravity="center"
-            android:text="allow notification and chat recovery will \nrecover all the message for you.\nYou can see all the deleted and unseen\nmessage."
+            android:text="Chat Recovery needs notification access to recover your deleted Whatsapp messages."
             android:textColor="@color/SubTextColor"
             android:textSize="14sp" />
 
@@ -42,18 +44,17 @@
 
     <ImageView
         android:id="@+id/permissionImg"
-        android:layout_width="92dp"
-        android:layout_height="92dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_gravity="center"
         android:src="@drawable/permission_img"
         tools:ignore="ContentDescription" />
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1.3"
-        android:gravity="bottom|center"
+        android:layout_weight="1"
         android:orientation="vertical">
 
 
@@ -61,61 +62,87 @@
             android:id="@+id/permissionDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="60dp"
+            android:layout_above="@id/bottomLayout"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="60dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="30dp"
+            android:layout_centerHorizontal="true"
+            android:text=""
             android:gravity="center"
-            android:text="Please allow notification access to \nchat recovery to recover all the message."
-            android:textColor="@color/textColorSecondary"
+            android:textColor="@color/textColor"
             android:textSize="14sp" />
 
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnAllow"
-            android:layout_width="300dp"
+        <LinearLayout
+            android:id="@+id/bottomLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="30dp"
-            android:fontFamily="sans-serif-medium"
-            android:padding="15dp"
-            android:text="Allow Access"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            app:cornerRadius="30dp" />
-
-
-        <TextView
-            android:id="@+id/appSettings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
-            android:fontFamily="sans-serif-medium"
+            android:layout_alignParentBottom="true"
             android:gravity="center"
-            android:padding="15dp"
-            android:text="App Settings"
-            android:textColor="@color/textGrey"
-            android:textSize="16sp" />
+            android:orientation="vertical">
 
 
-        <TextView
-            android:id="@+id/btnHowToAllow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="20dp"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="How to allow access"
-            android:textColor="@color/linkColor"
-            android:textSize="14sp" />
+            <CheckBox
+                android:id="@+id/checkboxPermission"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"
+                android:text="I agree to allow notification access"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp" />
 
-    </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAllow"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="30dp"
+                android:fontFamily="sans-serif-medium"
+                android:padding="15dp"
+                android:text="Allow Access"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:cornerRadius="30dp" />
+
+
+            <TextView
+                android:id="@+id/btnPrivacyPolicy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Privacy Policy"
+                android:textColor="@color/textColorSecondary"
+                android:textSize="14sp" />
+
+
+            <TextView
+                android:id="@+id/btnHowToAllow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="How to allow access"
+                android:textColor="@color/linkColor"
+                android:textSize="14sp" />
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
 
 </LinearLayout>
