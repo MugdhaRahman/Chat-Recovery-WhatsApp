@@ -14,6 +14,9 @@ import android.service.notification.StatusBarNotification
 import android.util.Log
 import com.androvine.chatrecovery.db.CallDBHelper
 import com.androvine.chatrecovery.db.MessageDBHelper
+import com.androvine.chatrecovery.models.CallModel
+import com.androvine.chatrecovery.models.CallStatus
+import com.androvine.chatrecovery.models.CallType
 import com.androvine.chatrecovery.models.MessageModel
 import java.io.File
 import java.io.FileOutputStream
@@ -50,6 +53,11 @@ class NotificationService : NotificationListenerService() {
             val messageTime = System.currentTimeMillis()
             val avatar = "avatar_" + username + "_image.png"
 
+            Log.e(
+                "NotificationService",
+                "onNotificationPosted: " + username + " " + message + " " + messageTime
+            )
+
             // load large icon
             largeIconBitmap = userIcon?.loadDrawables(context)?.toBitmap()
             val internalStorageDir = this.filesDir
@@ -69,7 +77,7 @@ class NotificationService : NotificationListenerService() {
 
             if (!message.contains("new messages") && !message.contains("voice call") && !message.contains(
                     "video call"
-                )
+                ) && !message.contains("missed call") && !message.contains("Missed Call")
             ) {
                 // chat model
                 val messageModel = MessageModel(
@@ -92,31 +100,55 @@ class NotificationService : NotificationListenerService() {
 
             }
 
-            if (message.contains("Incoming voice call")
-                || message.contains("Ongoing voice call")
-                || message.contains("Incoming video call")
-                || message.contains("Ongoing video call")
+            val messageLower = message.lowercase()
+            Log.e("message", "message.lowercase() 1: " + messageLower)
+
+            if (messageLower.contains("incoming voice call")
+                || messageLower.contains("ongoing voice call")
+                || messageLower.contains("incoming video call")
+                || messageLower.contains("ongoing video call")
+                || messageLower.contains("missed call")
+                || messageLower.contains("missed calls")
             ) {
 
-                val formattedMessage = message.replace("📹", "")
+                Log.e("message", "message.lowercase() 2: " + messageLower)
 
-                // chat model
-                val messageModel = MessageModel(
+
+                val callType = if (messageLower.contains("voice")) {
+                    CallType.AUDIO
+                } else if (messageLower.contains("video")) {
+                    CallType.VIDEO
+                } else {
+                    CallType.UNKNOWN
+                }
+
+                val callStatus = if (messageLower.contains("ongoing")) {
+                    CallStatus.ONGOING
+                } else if (messageLower.contains("incoming")) {
+                    CallStatus.INCOMING
+                } else {
+                    CallStatus.MISSED
+                }
+
+
+                // call model
+                val callModel = CallModel(
                     user = username.toString(),
-                    message = formattedMessage,
+                    callType = callType,
+                    callStatus = callStatus,
                     time = messageTime,
                     avatarFileName = avatar
                 )
 
                 // save chat model to database
                 val callDBHelper = CallDBHelper(context)
-                callDBHelper.addCallItem(messageModel)
+                callDBHelper.addCallItem(callModel)
                 val intent = Intent("new_item_call")
                 sendBroadcast(intent)
 
                 Log.e(
                     "NotificationService",
-                    "onNotificationPosted: " + messageModel.toString()
+                    "onNotificationPosted: " + callModel.toString()
                 )
             }
 

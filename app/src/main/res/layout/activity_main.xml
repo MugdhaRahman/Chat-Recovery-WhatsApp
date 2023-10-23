@@ -18,15 +18,14 @@
 
         <TextView
             android:id="@+id/toolbarTitle"
-            style="@style/TextAppearance.Material3.ActionBar.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="20dp"
+            android:fontFamily="sans-serif-medium"
             android:text="@string/app_name"
             android:textColor="@color/textColor"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textSize="18sp" />
 
 
         <ImageView
