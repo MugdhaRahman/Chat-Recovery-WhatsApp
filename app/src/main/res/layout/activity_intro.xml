@@ -43,4 +43,13 @@
         android:visibility="gone"
         app:drawableEndCompat="@drawable/ic_arrow_forward" />
 
+    <ImageView
+        android:id="@+id/ivDot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="20dp"
+        android:src="@drawable/intro_dot_1" />
+
 </RelativeLayout>

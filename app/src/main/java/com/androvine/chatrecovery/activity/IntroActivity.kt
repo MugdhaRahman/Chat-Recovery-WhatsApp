@@ -82,7 +82,7 @@ class IntroActivity : AppCompatActivity() {
 
                 when (position) {
                     0 -> setUpFirstAndSecondPage()
-                    1 -> setUpFirstAndSecondPage()
+                    1 -> setUpSecondPage()
                     2 -> setUpThirdPage()
                 }
 
@@ -122,11 +122,19 @@ class IntroActivity : AppCompatActivity() {
     private fun setUpFirstAndSecondPage() {
         binding.startButton.visibility = View.GONE
         binding.lottieNext.visibility = View.VISIBLE
+        binding.ivDot.setImageResource(R.drawable.intro_dot_1)
+    }
+
+    private fun setUpSecondPage() {
+        binding.startButton.visibility = View.GONE
+        binding.lottieNext.visibility = View.VISIBLE
+        binding.ivDot.setImageResource(R.drawable.intro_dot_2)
     }
 
     private fun setUpThirdPage() {
         binding.startButton.visibility = View.VISIBLE
         binding.lottieNext.visibility = View.GONE
+        binding.ivDot.setImageResource(R.drawable.intro_dot_3)
     }
 
     private fun goToHome() {
