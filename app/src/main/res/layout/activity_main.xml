@@ -51,27 +51,15 @@
         android:layout_above="@id/bottomBar"
         android:layout_below="@id/toolbar_layout" />
 
-
-    <io.genemoz.custombottomnav.CustomBottomBar
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        app:itemHorizontalTranslationEnabled="true"
+        android:textAlignment="viewEnd"
+        android:background="@color/white"
+        android:layout_alignParentBottom="true"
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_alignParentBottom="true"
-        app:backgroundColor="@color/white"
-        app:badgeColor="#FF0000"
-        app:cornerRadius="8dp"
-        app:corners="top_left|top_right"
-        app:iconMargin="8dp"
-        app:iconSize="22dp"
-        app:iconTint="@color/greyTint"
-        app:iconTintActive="@color/white"
-        app:indicatorColor="@color/colorPrimary"
-        app:indicatorRadius="8dp"
-        app:itemPadding="8dp"
-        app:menu="@menu/bottom_nav_menu"
-        app:sideMargins="5dp"
-        app:textColor="@color/white"
-        app:textSize="12sp" />
+        android:layout_height="wrap_content"
+        app:menu="@menu/bottom_nav_menu" />
 
 
 </RelativeLayout>

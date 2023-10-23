@@ -50,17 +50,47 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupBottomNav() {
         binding.viewPager.adapter = viewPagerAdapter
-        binding.bottomBar.setOnItemSelectedListener {
-            binding.viewPager.currentItem = it
 
+        binding.bottomBar.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.n_home -> {
+                    binding.viewPager.currentItem = 0
+                    setStatusBar(0)
+                }
+
+                R.id.n_call -> {
+                    binding.viewPager.currentItem = 1
+                    setStatusBar(1)
+                }
+
+                R.id.n_media -> {
+                    binding.viewPager.currentItem = 2
+                    setStatusBar(2)
+                }
+            }
+            true // Return true to indicate that the item selection is handled.
         }
         binding.viewPager.registerOnPageChangeCallback(object :
             androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
-                binding.bottomBar.itemActiveIndex = position
+                binding.bottomBar.menu.getItem(position).isChecked = true
                 setStatusBar(position)
             }
         })
+
+
+        binding.bottomBar.getOrCreateBadge(R.id.n_call).apply {
+            isVisible = true
+            number = 10  //set the missed call count
+            backgroundColor = getColor(R.color.red)
+
+
+        }
+
+        // Remove the badge when no longer need it.
+//        binding.bottomBar.removeBadge(R.id.n_call)
+
+
     }
 
     @SuppressLint("SetTextI18n")
