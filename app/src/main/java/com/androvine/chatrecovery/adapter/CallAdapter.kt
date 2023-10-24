@@ -35,6 +35,12 @@ class CallAdapter(private val context: Context, private val callList: MutableLis
         return callList.size
     }
 
+    fun updateList(list: List<CallModel>) {
+        callList.clear()
+        callList.addAll(list)
+        notifyDataSetChanged()
+    }
+
 
     class CallViewHolder(val binding: ItemCallsBinding) :
         RecyclerView.ViewHolder(binding.root)
