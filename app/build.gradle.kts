@@ -54,8 +54,6 @@ dependencies {
 
 
     implementation("com.airbnb.android:lottie:5.2.0")
-    implementation("com.github.Genomoz:Lib-Bottom-Nav:0.1")
-
     // koin for dependency injection
     implementation("io.insert-koin:koin-android:3.5.0")
 

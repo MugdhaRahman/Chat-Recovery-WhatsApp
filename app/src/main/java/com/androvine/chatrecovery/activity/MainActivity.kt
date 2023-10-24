@@ -83,8 +83,6 @@ class MainActivity : AppCompatActivity() {
             isVisible = true
             number = 10  //set the missed call count
             backgroundColor = getColor(R.color.red)
-
-
         }
 
         // Remove the badge when no longer need it.
