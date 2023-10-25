@@ -41,6 +41,11 @@ class MainActivity : AppCompatActivity() {
             largeIconDir.mkdir()
         }
 
+        val pictureBitmapFileDir = File(internalStorageDir, "my_pictures")
+        if (!pictureBitmapFileDir.exists()) {
+            pictureBitmapFileDir.mkdir()
+        }
+
         val intentFilter = IntentFilter("new_item_message")
         intentFilter.addAction("new_item_call")
         registerReceiver(broadcastReceiver, intentFilter)

@@ -1,5 +1,6 @@
 package com.androvine.chatrecovery.utils
 
+import android.app.Notification
 import android.app.Notification.EXTRA_TEXT
 import android.app.Notification.EXTRA_TITLE
 import android.content.Context
@@ -12,6 +13,9 @@ import android.graphics.drawable.Icon
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import android.util.Log
+import androidx.core.app.NotificationCompat.EXTRA_PICTURE
+import androidx.core.app.NotificationCompat.EXTRA_PICTURE_ICON
+import androidx.core.app.NotificationCompat.EXTRA_SHOW_BIG_PICTURE_WHEN_COLLAPSED
 import com.androvine.chatrecovery.db.CallDBHelper
 import com.androvine.chatrecovery.db.MessageDBHelper
 import com.androvine.chatrecovery.models.CallModel
@@ -20,6 +24,7 @@ import com.androvine.chatrecovery.models.CallType
 import com.androvine.chatrecovery.models.MessageModel
 import java.io.File
 import java.io.FileOutputStream
+
 
 class NotificationService : NotificationListenerService() {
 
@@ -53,10 +58,6 @@ class NotificationService : NotificationListenerService() {
             val messageTime = System.currentTimeMillis()
             val avatar = "avatar_" + username + "_image.png"
 
-            Log.e(
-                "NotificationService",
-                "onNotificationPosted: " + username + " " + message + " " + messageTime
-            )
 
             // load large icon
             largeIconBitmap = userIcon?.loadDrawables(context)?.toBitmap()
@@ -109,6 +110,8 @@ class NotificationService : NotificationListenerService() {
                 || messageLower.contains("ongoing video call")
                 || messageLower.contains("missed call")
                 || messageLower.contains("missed calls")
+                || messageLower.contains("missed voice call")
+                || messageLower.contains("missed video call")
             ) {
 
                 Log.e("message", "message.lowercase() 2: " + messageLower)
@@ -122,14 +125,16 @@ class NotificationService : NotificationListenerService() {
                     CallType.UNKNOWN
                 }
 
-                val callStatus = if (messageLower.contains("ongoing")) {
-                    CallStatus.ONGOING
+                var callStatus: CallStatus = CallStatus.INCOMING
+                if (messageLower.contains("miss")) {
+                    callStatus = CallStatus.MISSED
+                } else if (messageLower.contains("ongoing")) {
+                    callStatus = CallStatus.ONGOING
                 } else if (messageLower.contains("incoming")) {
-                    CallStatus.INCOMING
-                } else {
-                    CallStatus.MISSED
+                    callStatus = CallStatus.INCOMING
                 }
 
+                Log.e("message", "message.lowercase() 3: " + callStatus)
 
                 // call model
                 val callModel = CallModel(

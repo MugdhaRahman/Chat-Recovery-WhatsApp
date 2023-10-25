@@ -9,7 +9,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.registerReceiver
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.androvine.chatrecovery.adapter.CallAdapter
@@ -35,7 +34,7 @@ class FragmentCalls : Fragment() {
         val intentFilter = IntentFilter("new_item_call")
         requireActivity().registerReceiver(broadcastReceiver, intentFilter)
 
-        callAdapter = CallAdapter(requireContext(), callList)
+        callAdapter = CallAdapter(mutableListOf())
         binding.recyclerViewCalls.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = callAdapter
@@ -43,10 +42,10 @@ class FragmentCalls : Fragment() {
         return binding.root
     }
 
-//    override fun onResume() {
-//        super.onResume()
-//        loadCallListData()
-//    }
+    override fun onResume() {
+        super.onResume()
+        loadCallListData()
+    }
 
 
     private fun loadCallListData() {
@@ -55,7 +54,8 @@ class FragmentCalls : Fragment() {
 
         callList.clear()
         callList.addAll(callListData)
-        callAdapter.notifyDataSetChanged()
+        Log.e("FragmentCalls", "loadCallListData: " + callList.size)
+        callAdapter.updateList(callList)
     }
 
 
