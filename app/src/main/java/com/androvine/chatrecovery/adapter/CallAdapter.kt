@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.androvine.chatrecovery.R
 import com.androvine.chatrecovery.databinding.ItemCallsBinding
 import com.androvine.chatrecovery.models.CallModel
+import com.androvine.chatrecovery.models.CallStatus
 import java.sql.Date
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -35,6 +36,17 @@ class CallAdapter(private val context: Context, private val callList: MutableLis
         val formattedTime = dateFormat.format(Date(timestamp))
         holder.binding.tvCallTime.text = formattedTime
 
+        when (callModel.callStatus) {
+            CallStatus.INCOMING -> {
+                holder.binding.ivCallStatus.setImageResource(R.drawable.ic_incoming_call)
+            }
+            CallStatus.MISSED -> {
+                holder.binding.ivCallStatus.setImageResource(R.drawable.ic_missed_call)
+            }
+            CallStatus.ONGOING -> {
+                holder.binding.ivCallStatus.setImageResource(R.drawable.ic_incoming_call)
+            }
+        }
 
 
     }
