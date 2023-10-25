@@ -4,8 +4,12 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.androvine.chatrecovery.R
 import com.androvine.chatrecovery.databinding.ItemCallsBinding
 import com.androvine.chatrecovery.models.CallModel
+import java.sql.Date
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class CallAdapter(private val context: Context, private val callList: MutableList<CallModel>) :
     RecyclerView.Adapter<CallAdapter.CallViewHolder>() {
@@ -26,19 +30,17 @@ class CallAdapter(private val context: Context, private val callList: MutableLis
         val callModel = callList[position]
         holder.binding.tvName.text = callModel.user
 
-        holder.binding.tvCallTime.text = callModel.time.toString()
+        val timestamp = callModel.time
+        val dateFormat = SimpleDateFormat("MMMM d, h:mm a", Locale.getDefault())
+        val formattedTime = dateFormat.format(Date(timestamp))
+        holder.binding.tvCallTime.text = formattedTime
+
 
 
     }
 
     override fun getItemCount(): Int {
         return callList.size
-    }
-
-    fun updateList(list: List<CallModel>) {
-        callList.clear()
-        callList.addAll(list)
-        notifyDataSetChanged()
     }
 
 

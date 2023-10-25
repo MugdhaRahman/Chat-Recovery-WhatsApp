@@ -26,8 +26,26 @@ class FragmentCalls : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-
+        callAdapter = CallAdapter(requireContext(), callList)
+        binding.recyclerViewCalls.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = callAdapter
+        }
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        loadCallListData()
+    }
+
+
+    private fun loadCallListData() {
+        val dbHelper = CallDBHelper(requireContext())
+        val callListData = dbHelper.getAllCall()
+
+        callList.clear()
+        callList.addAll(callListData)
+        callAdapter.notifyDataSetChanged()
+    }
 }
