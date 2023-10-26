@@ -33,6 +33,10 @@ class MainActivity : AppCompatActivity() {
 
         setupBottomNav()
 
+        binding.settings.setOnClickListener {
+            startActivity(Intent(this, SettingsActivity::class.java))
+        }
+
 
         val internalStorageDir = this.filesDir
 

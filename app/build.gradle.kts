@@ -57,4 +57,7 @@ dependencies {
     // koin for dependency injection
     implementation("io.insert-koin:koin-android:3.5.0")
 
+    implementation("androidx.preference:preference-ktx:1.2.1")
+
+
 }
