@@ -92,7 +92,7 @@ class CallAdapter(private val callList: MutableList<CallModel>) :
         }
 
 
-        holder.binding.root.setOnLongClickListener {
+        holder.binding.root.setOnLongClickListener { it ->
 
             val dialog = BottomSheetDialog(it.context)
             val binding = BottomsheetCallListBinding.inflate(
@@ -104,7 +104,7 @@ class CallAdapter(private val callList: MutableList<CallModel>) :
             dialog.setCancelable(true)
 
             binding.btnDelete.setOnClickListener {
-              //show delete dialog
+                //show delete dialog
 
                 val dialog = Dialog(it.context)
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -116,16 +116,17 @@ class CallAdapter(private val callList: MutableList<CallModel>) :
                     ViewGroup.LayoutParams.WRAP_CONTENT
                 )
 
-                dialog.findViewById<androidx.appcompat.widget.AppCompatButton>(R.id.cancel).setOnClickListener {
-                    dialog.dismiss()
-                }
-                dialog.findViewById<androidx.appcompat.widget.AppCompatButton>(R.id.delete).setOnClickListener {
-                    //delete call item
+                dialog.findViewById<androidx.appcompat.widget.AppCompatButton>(R.id.cancel)
+                    .setOnClickListener {
+                        dialog.dismiss()
+                    }
+                dialog.findViewById<androidx.appcompat.widget.AppCompatButton>(R.id.delete)
+                    .setOnClickListener {
+                        //delete call item
 
 
-
-                    dialog.dismiss()
-                }
+                        dialog.dismiss()
+                    }
                 dialog.show()
 
                 dialog.dismiss()
