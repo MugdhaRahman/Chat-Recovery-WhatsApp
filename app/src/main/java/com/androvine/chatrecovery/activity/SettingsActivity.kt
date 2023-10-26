@@ -4,7 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceFragmentCompat
 import com.androvine.chatrecovery.R
 import com.androvine.chatrecovery.constants.Constants
@@ -19,6 +18,10 @@ class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        binding.ivBack.setOnClickListener {
+            finish()
+        }
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, SettingFragment()).commit()
