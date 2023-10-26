@@ -103,35 +103,35 @@ class CallAdapter(private val callList: MutableList<CallModel>) :
             dialog.setContentView(binding.root)
             dialog.setCancelable(true)
 
-            binding.btnDelete.setOnClickListener {
-                //show delete dialog
-
-                val dialog = Dialog(it.context)
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                dialog.setCancelable(true)
-                dialog.setContentView(R.layout.dialog_delete_files)
-                dialog.window!!.setBackgroundDrawableResource(android.R.color.transparent)
-                dialog.window!!.setLayout(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT
-                )
-
-                dialog.findViewById<androidx.appcompat.widget.AppCompatButton>(R.id.cancel)
-                    .setOnClickListener {
-                        dialog.dismiss()
-                    }
-                dialog.findViewById<androidx.appcompat.widget.AppCompatButton>(R.id.delete)
-                    .setOnClickListener {
-                        //delete call item
-
-
-                        dialog.dismiss()
-                    }
-                dialog.show()
-
-                dialog.dismiss()
-
-            }
+//            binding.btnDelete.setOnClickListener {
+//                //show delete dialog
+//
+//                val dialog = Dialog(it.context)
+//                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+//                dialog.setCancelable(true)
+//                dialog.setContentView(R.layout.dialog_delete_files)
+//                dialog.window!!.setBackgroundDrawableResource(android.R.color.transparent)
+//                dialog.window!!.setLayout(
+//                    ViewGroup.LayoutParams.MATCH_PARENT,
+//                    ViewGroup.LayoutParams.WRAP_CONTENT
+//                )
+//
+//                dialog.findViewById<androidx.appcompat.widget.AppCompatTextView>(R.id.cancel)
+//                    .setOnClickListener {
+//                        dialog.dismiss()
+//                    }
+//                dialog.findViewById<androidx.appcompat.widget.AppCompatButton>(R.id.delete)
+//                    .setOnClickListener {
+//                        //delete call item
+//
+//
+//                        dialog.dismiss()
+//                    }
+//                dialog.show()
+//
+//                dialog.dismiss()
+//
+//            }
 
             dialog.show()
             true
