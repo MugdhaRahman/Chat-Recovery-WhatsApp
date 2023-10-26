@@ -21,7 +21,6 @@ class FragmentHome : Fragment() {
         FragmentHomeBinding.inflate(layoutInflater)
     }
 
-    private val userList = mutableListOf<MessageModel>()
     private lateinit var userAdapter: UserAdapter
 
     override fun onCreateView(
@@ -48,7 +47,12 @@ class FragmentHome : Fragment() {
 
     private fun loadCallListData() {
         val dbHelper = MessageDBHelper(requireActivity())
+        val messageList = dbHelper.getAllMessage()
+
+
+        userAdapter.updateList(messageList)
     }
+
 
 
     private val broadcastReceiver = object : BroadcastReceiver() {
