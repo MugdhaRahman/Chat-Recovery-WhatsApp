@@ -10,10 +10,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.androvine.chatrecovery.adapter.CallAdapter
 import com.androvine.chatrecovery.adapter.UserAdapter
 import com.androvine.chatrecovery.databinding.FragmentHomeBinding
 import com.androvine.chatrecovery.db.MessageDBHelper
-import com.androvine.chatrecovery.models.MessageModel
 
 class FragmentHome : Fragment() {
 
@@ -36,12 +36,19 @@ class FragmentHome : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = userAdapter
         }
+
+
         return binding.root
     }
 
     override fun onResume() {
         super.onResume()
         loadCallListData()
+
+        binding.tvTotalChats.text = userAdapter.itemCount.toString()
+
+        //not working
+        binding.tvTotalCalls.text = CallAdapter(mutableListOf()).itemCount.toString()
     }
 
 
@@ -52,7 +59,6 @@ class FragmentHome : Fragment() {
 
         userAdapter.updateList(messageList)
     }
-
 
 
     private val broadcastReceiver = object : BroadcastReceiver() {
