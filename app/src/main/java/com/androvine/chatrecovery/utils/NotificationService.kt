@@ -1,6 +1,5 @@
 package com.androvine.chatrecovery.utils
 
-import android.app.Notification
 import android.app.Notification.EXTRA_TEXT
 import android.app.Notification.EXTRA_TITLE
 import android.content.Context
@@ -13,9 +12,6 @@ import android.graphics.drawable.Icon
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import android.util.Log
-import androidx.core.app.NotificationCompat.EXTRA_PICTURE
-import androidx.core.app.NotificationCompat.EXTRA_PICTURE_ICON
-import androidx.core.app.NotificationCompat.EXTRA_SHOW_BIG_PICTURE_WHEN_COLLAPSED
 import com.androvine.chatrecovery.db.CallDBHelper
 import com.androvine.chatrecovery.db.MessageDBHelper
 import com.androvine.chatrecovery.models.CallModel
@@ -156,10 +152,7 @@ class NotificationService : NotificationListenerService() {
                     "onNotificationPosted: " + callModel.toString()
                 )
             }
-
-
         }
-
 
     }
 
