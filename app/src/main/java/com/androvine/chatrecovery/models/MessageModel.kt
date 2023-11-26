@@ -5,5 +5,6 @@ data class MessageModel (
     val user: String = "",
     val message: String = "",
     val time: Long = 0,
-    val avatarFileName: String = ""
+    val avatarFileName: String = "",
+    val messageSummary: String = ""
 )

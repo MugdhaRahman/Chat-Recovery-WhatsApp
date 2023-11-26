@@ -42,11 +42,13 @@
 
 
             <TextView
-                android:id="@+id/tvNewMessage"
+                android:maxLength="20"
+                android:id="@+id/tvMessageSummary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="5 new message"
+                android:maxLines="1"
+                android:text="new message"
                 android:textColor="@color/SubTextColor" />
 
         </LinearLayout>

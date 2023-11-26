@@ -56,7 +56,6 @@ class FragmentHome : Fragment() {
         val dbHelper = MessageDBHelper(requireActivity())
         val messageList = dbHelper.getAllMessage()
 
-
         userAdapter.updateList(messageList)
     }
 

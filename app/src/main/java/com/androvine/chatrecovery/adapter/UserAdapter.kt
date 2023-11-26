@@ -29,6 +29,8 @@ class UserAdapter(private val userList: MutableList<MessageModel>) :
         val messageModel = userList[position]
 
         holder.binding.tvName.text = messageModel.user
+        holder.binding.tvMessageSummary.text = messageModel.messageSummary
+
 
         val timestamp = messageModel.time
         val dateFormat = SimpleDateFormat("h:mm a", Locale.getDefault())
@@ -42,9 +44,10 @@ class UserAdapter(private val userList: MutableList<MessageModel>) :
         return userList.size
     }
 
-    fun updateList(messageList1: List<MessageModel>) {
+    //update userlist
+    fun updateList(userList: List<MessageModel>) {
         this.userList.clear()
-        this.userList.addAll(messageList1)
+        this.userList.addAll(userList)
         notifyDataSetChanged()
     }
 

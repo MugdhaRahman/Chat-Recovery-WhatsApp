@@ -53,6 +53,9 @@ class NotificationService : NotificationListenerService() {
             val userIcon = sbn.notification?.getLargeIcon()
             val messageTime = System.currentTimeMillis()
             val avatar = "avatar_" + username + "_image.png"
+            val messageSummary = extras?.getCharSequence("android.text")?.toString()
+
+            Log.e("NotificationService", "onNotificationPosted: " + extras)
 
 
             // load large icon
@@ -80,17 +83,21 @@ class NotificationService : NotificationListenerService() {
                     "backup in progress"
                 )
             ) {
+
                 // chat model
                 val messageModel = MessageModel(
                     user = username.toString(),
                     message = message,
                     time = messageTime,
-                    avatarFileName = avatar
+                    avatarFileName = avatar,
+                    messageSummary = messageSummary.toString()
                 )
 
                 // save chat model to database
                 val messageDBHelper = MessageDBHelper(context)
                 messageDBHelper.addMessageItem(messageModel)
+
+
                 val intent = Intent("new_item_message")
                 sendBroadcast(intent)
 
