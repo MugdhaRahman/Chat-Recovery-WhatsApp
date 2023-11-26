@@ -5,7 +5,7 @@
     android:background="@color/backgroundColor">
 
     <LinearLayout
-        android:id="@+id/callItem"
+        android:id="@+id/messageItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"

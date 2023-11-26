@@ -32,9 +32,9 @@ class FragmentHome : Fragment() {
         val intentFilter = IntentFilter("new_item_message")
         requireActivity().registerReceiver(broadcastReceiver, intentFilter)
 
-        userAdapter = UserAdapter(mutableListOf())
+        userAdapter = UserAdapter(requireContext(), mutableListOf())
         binding.rvChatList.apply {
-            layoutManager = LinearLayoutManager(requireContext())
+            layoutManager = LinearLayoutManager(requireActivity())
             adapter = userAdapter
         }
 
@@ -44,7 +44,7 @@ class FragmentHome : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        loadCallListData()
+        loadMessageListData()
 
         binding.tvTotalChats.text = userAdapter.itemCount.toString()
 
@@ -53,7 +53,7 @@ class FragmentHome : Fragment() {
     }
 
 
-    private fun loadCallListData() {
+    private fun loadMessageListData() {
         val dbHelper = MessageDBHelper(requireActivity())
         val messageList = dbHelper.getAllMessage()
 
@@ -77,7 +77,7 @@ class FragmentHome : Fragment() {
     private val broadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             if (intent?.action == "new_item_call") {
-                loadCallListData()
+                loadMessageListData()
             }
         }
     }

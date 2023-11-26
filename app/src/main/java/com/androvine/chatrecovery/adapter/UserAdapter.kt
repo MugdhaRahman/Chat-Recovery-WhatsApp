@@ -1,15 +1,19 @@
 package com.androvine.chatrecovery.adapter
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.androvine.chatrecovery.activity.MessageViewActivity
 import com.androvine.chatrecovery.databinding.ItemUserBinding
 import com.androvine.chatrecovery.models.MessageModel
 import java.sql.Date
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class UserAdapter(private val userList: MutableList<MessageModel>) :
+class UserAdapter(private val context: Context, private val userList: MutableList<MessageModel>) :
     RecyclerView.Adapter<UserAdapter.MessageViewHolder>() {
     override fun onCreateViewHolder(
         viewGroup: ViewGroup,
@@ -30,6 +34,13 @@ class UserAdapter(private val userList: MutableList<MessageModel>) :
 
         holder.binding.tvName.text = messageModel.user
         holder.binding.tvMessageSummary.text = messageModel.messageSummary
+        holder.binding.messageItem.setOnClickListener {
+
+            val intent = Intent(context, MessageViewActivity::class.java)
+            intent.putExtra("user", messageModel.user)
+            startActivity(context, intent, null)
+
+        }
 
 
         val timestamp = messageModel.time
@@ -44,7 +55,7 @@ class UserAdapter(private val userList: MutableList<MessageModel>) :
         return userList.size
     }
 
-    //update userlist
+    //update userList
     fun updateList(userList: List<MessageModel>) {
         this.userList.clear()
         this.userList.addAll(userList)
