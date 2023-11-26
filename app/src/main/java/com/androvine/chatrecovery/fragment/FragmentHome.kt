@@ -63,7 +63,7 @@ class FragmentHome : Fragment() {
 
     private val broadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            if (intent?.action == "new_item_call") {
+            if (intent?.action == "new_item_message") {
                 loadCallListData()
             }
         }

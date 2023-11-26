@@ -74,7 +74,11 @@ class NotificationService : NotificationListenerService() {
 
             if (!message.contains("new messages") && !message.contains("voice call") && !message.contains(
                     "video call"
-                ) && !message.contains("missed call") && !message.contains("Missed Call")
+                ) && !message.contains("missed call") && !message.contains("Missed Call") && !message.contains(
+                    "missed voice call"
+                ) && !message.contains("missed video call") && !message.contains("whatsapp") && !message.contains(
+                    "backup in progress"
+                )
             ) {
                 // chat model
                 val messageModel = MessageModel(
