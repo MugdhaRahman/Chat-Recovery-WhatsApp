@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundColorSecondary">
+    android:background="#EFE9E5">
 
     <RelativeLayout
         android:id="@+id/toolbar_layout"
@@ -19,7 +19,7 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="20dp"
             android:layout_toEndOf="@id/backBtn"
-            android:fontFamily="sans-serif-condensed-medium"
+            android:fontFamily="sans-serif-medium"
             android:text="User Name"
             android:textColor="@color/textColor"
             android:textSize="17sp" />
