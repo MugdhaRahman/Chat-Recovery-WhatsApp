@@ -14,6 +14,7 @@ import com.androvine.chatrecovery.adapter.CallAdapter
 import com.androvine.chatrecovery.adapter.UserAdapter
 import com.androvine.chatrecovery.databinding.FragmentHomeBinding
 import com.androvine.chatrecovery.db.MessageDBHelper
+import com.androvine.chatrecovery.models.MessageModel
 
 class FragmentHome : Fragment() {
 
@@ -56,13 +57,26 @@ class FragmentHome : Fragment() {
         val dbHelper = MessageDBHelper(requireActivity())
         val messageList = dbHelper.getAllMessage()
 
-        userAdapter.updateList(messageList)
+        val latestMessagesMap = mutableMapOf<String, MessageModel>()
+
+        for (messageModel in messageList) {
+            val existingLatestMessage = latestMessagesMap[messageModel.user]
+
+            // Check if there's no existing latest message or if the current message is newer
+            if (existingLatestMessage == null || messageModel.time > existingLatestMessage.time) {
+                latestMessagesMap[messageModel.user] = messageModel
+            }
+        }
+
+        val uniqueUserMessageList = latestMessagesMap.values.toList()
+
+        userAdapter.updateList(uniqueUserMessageList)
     }
 
 
     private val broadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            if (intent?.action == "new_item_message") {
+            if (intent?.action == "new_item_call") {
                 loadCallListData()
             }
         }
