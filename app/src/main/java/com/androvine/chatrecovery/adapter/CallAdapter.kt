@@ -141,15 +141,18 @@ class CallAdapter(private val callList: MutableList<CallModel>) :
 
     }
 
+
     override fun getItemCount(): Int {
+        Log.e("CallAdapter", "getItemCount: ${callList.size}")
         return callList.size
     }
 
 
-    fun updateList(callList1: List<CallModel>) {
-        this.callList.clear()
-        this.callList.addAll(callList1)
+    fun updateList(newCallList: List<CallModel>) {
+        callList.clear()
+        callList.addAll(newCallList)
         notifyDataSetChanged()
+        Log.e("CallAdapter", "updateList: ${callList.size}")
     }
 
 

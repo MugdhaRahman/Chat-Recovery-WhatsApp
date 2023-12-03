@@ -1,10 +1,12 @@
 package com.androvine.chatrecovery.fragment
 
+import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +15,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.androvine.chatrecovery.adapter.CallAdapter
 import com.androvine.chatrecovery.adapter.UserAdapter
 import com.androvine.chatrecovery.databinding.FragmentHomeBinding
+import com.androvine.chatrecovery.db.CallDBHelper
 import com.androvine.chatrecovery.db.MessageDBHelper
+import com.androvine.chatrecovery.models.CallModel
 import com.androvine.chatrecovery.models.MessageModel
 
 class FragmentHome : Fragment() {
@@ -24,10 +28,16 @@ class FragmentHome : Fragment() {
 
     private lateinit var userAdapter: UserAdapter
 
+    private lateinit var callAdapter: CallAdapter
+    private val callList = mutableListOf<CallModel>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+
+        callAdapter = CallAdapter(mutableListOf())
 
         val intentFilter = IntentFilter("new_item_message")
         requireActivity().registerReceiver(broadcastReceiver, intentFilter)
@@ -39,18 +49,25 @@ class FragmentHome : Fragment() {
         }
 
 
+
         return binding.root
     }
 
     override fun onResume() {
         super.onResume()
+
         loadMessageListData()
+        loadCallListData()
+
+        binding.tvTotalCalls.text = callAdapter.itemCount.toString()
 
         binding.tvTotalChats.text = userAdapter.itemCount.toString()
 
-        //not working
-        binding.tvTotalCalls.text = CallAdapter(mutableListOf()).itemCount.toString()
+
+
     }
+
+
 
 
     private fun loadMessageListData() {
@@ -73,10 +90,21 @@ class FragmentHome : Fragment() {
         userAdapter.updateList(uniqueUserMessageList)
     }
 
+    private fun loadCallListData() {
+        val dbHelper = CallDBHelper(requireContext())
+        val callListData = dbHelper.getAllCall()
+
+        callList.clear()
+        callList.addAll(callListData)
+        Log.e("FragmentCalls", "loadCallListData: " + callList.size)
+        callAdapter.updateList(callList)
+    }
+
+
 
     private val broadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            if (intent?.action == "new_item_call") {
+            if (intent?.action == "new_item_message") {
                 loadMessageListData()
             }
         }
