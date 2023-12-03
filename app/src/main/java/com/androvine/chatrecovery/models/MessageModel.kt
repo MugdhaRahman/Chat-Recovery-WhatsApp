@@ -6,5 +6,5 @@ data class MessageModel (
     val message: String = "",
     val time: Long = 0,
     val avatarFileName: String = "",
-    val messageSummary: String = ""
+    val messageSummary: String = "",
 )

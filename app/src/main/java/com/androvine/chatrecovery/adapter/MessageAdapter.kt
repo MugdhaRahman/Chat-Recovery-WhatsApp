@@ -1,12 +1,10 @@
 package com.androvine.chatrecovery.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.androvine.chatrecovery.activity.MessageViewActivity
 import com.androvine.chatrecovery.databinding.ItemMessageBinding
 import com.androvine.chatrecovery.models.MessageModel
 import java.sql.Date
@@ -30,6 +28,9 @@ class MessageAdapter(
         return MessageViewHolder(binding)
     }
 
+    private val datePositions = HashMap<String, Int>()
+
+
     override fun onBindViewHolder(holder: MessageViewHolder, position: Int) {
 
 
@@ -42,7 +43,20 @@ class MessageAdapter(
         val dateFormat = SimpleDateFormat("h:mm a", Locale.getDefault())
         val formattedTime = dateFormat.format(Date(timestamp))
 
+        val msgDate = messageModel.time
+        val date = SimpleDateFormat("MMMM d, yyyy", Locale.getDefault())
+        val formattedDate = date.format(Date(msgDate))
+
         holder.binding.msgTime.text = formattedTime
+
+        // Show date only if it's the first occurrence of the date
+        if (!datePositions.containsKey(formattedDate) || datePositions[formattedDate] == position) {
+            holder.binding.msgDate.text = formattedDate
+            holder.binding.msgDate.visibility = View.VISIBLE
+            datePositions[formattedDate] = position
+        } else {
+            holder.binding.msgDate.visibility = View.GONE
+        }
 
 
     }

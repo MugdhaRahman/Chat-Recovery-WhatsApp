@@ -2,10 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view"
+    android:layout_marginTop="5dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#EFE9E5"
     android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/msg_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="july 12, 2020"
+        android:textColor="@color/textGrey"
+        android:textSize="12sp" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
