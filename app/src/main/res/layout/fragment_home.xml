@@ -50,7 +50,7 @@
                             android:layout_gravity="center"
                             android:text="250"
                             android:textColor="@color/white"
-                            android:textSize="20sp"
+                            android:textSize="17sp"
                             android:textStyle="bold" />
 
                         <TextView

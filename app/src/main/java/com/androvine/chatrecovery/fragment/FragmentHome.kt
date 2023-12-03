@@ -1,6 +1,5 @@
 package com.androvine.chatrecovery.fragment
 
-import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -61,13 +60,12 @@ class FragmentHome : Fragment() {
 
         binding.tvTotalCalls.text = callAdapter.itemCount.toString()
 
-        binding.tvTotalChats.text = userAdapter.itemCount.toString()
-
+        binding.tvTotalChats.text =
+            MessageDBHelper(requireActivity()).getAllMessage().size.toString()
+        binding.tvTotalUser.text = userAdapter.itemCount.toString()
 
 
     }
-
-
 
 
     private fun loadMessageListData() {
@@ -99,7 +97,6 @@ class FragmentHome : Fragment() {
         Log.e("FragmentCalls", "loadCallListData: " + callList.size)
         callAdapter.updateList(callList)
     }
-
 
 
     private val broadcastReceiver = object : BroadcastReceiver() {
