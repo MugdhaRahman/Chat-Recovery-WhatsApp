@@ -42,7 +42,7 @@
 
 
             <TextView
-                android:maxLength="20"
+                android:maxLength="25"
                 android:id="@+id/tvMessageSummary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
