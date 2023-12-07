@@ -1,12 +1,20 @@
 package com.androvine.chatrecovery.activity
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.PopupMenu
+import androidx.core.content.FileProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.androvine.chatrecovery.R
 import com.androvine.chatrecovery.adapter.MessageAdapter
 import com.androvine.chatrecovery.databinding.ActivityMessageViewBinding
 import com.androvine.chatrecovery.db.MessageDBHelper
 import com.androvine.chatrecovery.models.MessageModel
+import java.io.FileOutputStream
+import java.io.IOException
 
 class MessageViewActivity : AppCompatActivity() {
 
@@ -36,5 +44,56 @@ class MessageViewActivity : AppCompatActivity() {
             adapter = messageAdapter
         }
 
+        binding.menuBtn.setOnClickListener {
+
+            showPopupMenu(it)
+
+        }
+
     }
+
+
+    private fun showPopupMenu(view: View) {
+        val popupMenu = PopupMenu(this, view)
+        popupMenu.inflate(R.menu.share) // Replace with your menu resource ID
+
+        popupMenu.setOnMenuItemClickListener { item: MenuItem ->
+            when (item.itemId) {
+                R.id.share -> {
+
+
+                    true
+                }
+
+                else -> false
+            }
+        }
+
+        popupMenu.show()
+    }
+
+
+    private fun shareMessages(user: String, messageList: List<MessageModel>) {
+        val shareIntent = Intent(Intent.ACTION_SEND)
+        shareIntent.type = "text/plain"
+
+        val shareMessage = buildShareMessage(user, messageList)
+        shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage)
+
+        startActivity(Intent.createChooser(shareIntent, "Share Messages"))
+    }
+
+
+    private fun buildShareMessage(user: String, messageList: List<MessageModel>): String {
+        val stringBuilder = StringBuilder()
+        stringBuilder.append("Messages for $user:\n\n")
+
+        for (messageModel in messageList) {
+            stringBuilder.append("${messageModel.user}: ${messageModel.message}\n")
+        }
+
+        return stringBuilder.toString()
+    }
+
+
 }
