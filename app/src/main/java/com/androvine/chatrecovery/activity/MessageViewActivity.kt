@@ -6,15 +6,12 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
-import androidx.core.content.FileProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.androvine.chatrecovery.R
 import com.androvine.chatrecovery.adapter.MessageAdapter
 import com.androvine.chatrecovery.databinding.ActivityMessageViewBinding
 import com.androvine.chatrecovery.db.MessageDBHelper
 import com.androvine.chatrecovery.models.MessageModel
-import java.io.FileOutputStream
-import java.io.IOException
 
 class MessageViewActivity : AppCompatActivity() {
 
@@ -61,6 +58,10 @@ class MessageViewActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.share -> {
 
+                    val user = intent.getStringExtra("user")
+                    val dbHelper = MessageDBHelper(this)
+                    val messageList = dbHelper.getMessageByUser(user!!)
+                    shareMessages(user, messageList)
 
                     true
                 }
