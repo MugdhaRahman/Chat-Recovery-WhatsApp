@@ -88,25 +88,25 @@ class SettingsActivity : AppCompatActivity() {
             }
 
 
-            val darkThemePref =
-                findPreference<androidx.preference.ListPreference>("pref_dark_theme")
-            darkThemePref?.setOnPreferenceChangeListener { _, newValue ->
-                when (newValue as String) {
-                    "light_theme" -> {
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                    }
-
-                    "dark_theme" -> {
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                    }
-
-                    else -> {
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-                    }
-                }
-                requireActivity().recreate()
-                true
-            }
+//            val darkThemePref =
+//                findPreference<androidx.preference.ListPreference>("pref_dark_theme")
+//            darkThemePref?.setOnPreferenceChangeListener { _, newValue ->
+//                when (newValue as String) {
+//                    "light_theme" -> {
+//                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+//                    }
+//
+//                    "dark_theme" -> {
+//                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+//                    }
+//
+//                    else -> {
+//                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+//                    }
+//                }
+//                requireActivity().recreate()
+//                true
+//            }
 
         }
 
