@@ -36,7 +36,7 @@ class FragmentHome : Fragment() {
     ): View {
 
 
-        callAdapter = CallAdapter(mutableListOf())
+        callAdapter = CallAdapter(requireContext(),mutableListOf())
 
         val intentFilter = IntentFilter("new_item_message")
         requireActivity().registerReceiver(broadcastReceiver, intentFilter)

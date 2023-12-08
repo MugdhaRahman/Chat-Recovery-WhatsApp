@@ -1,15 +1,14 @@
 package com.androvine.chatrecovery.adapter
 
-import android.app.Dialog
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.view.Window
 import androidx.recyclerview.widget.RecyclerView
 import com.androvine.chatrecovery.R
 import com.androvine.chatrecovery.databinding.BottomsheetCallListBinding
 import com.androvine.chatrecovery.databinding.ItemCallsBinding
+import com.androvine.chatrecovery.db.CallDBHelper
 import com.androvine.chatrecovery.models.CallModel
 import com.androvine.chatrecovery.models.CallStatus
 import com.androvine.chatrecovery.models.CallType
@@ -18,7 +17,7 @@ import java.sql.Date
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class CallAdapter(private val callList: MutableList<CallModel>) :
+class CallAdapter(private val context: Context, private val callList: MutableList<CallModel>) :
     RecyclerView.Adapter<CallAdapter.CallViewHolder>() {
     override fun onCreateViewHolder(
         viewGroup: ViewGroup,
@@ -104,35 +103,16 @@ class CallAdapter(private val callList: MutableList<CallModel>) :
             dialog.setContentView(binding.root)
             dialog.setCancelable(true)
 
-//            binding.btnDelete.setOnClickListener {
-//                //show delete dialog
-//
-//                val dialog = Dialog(it.context)
-//                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-//                dialog.setCancelable(true)
-//                dialog.setContentView(R.layout.dialog_delete_files)
-//                dialog.window!!.setBackgroundDrawableResource(android.R.color.transparent)
-//                dialog.window!!.setLayout(
-//                    ViewGroup.LayoutParams.MATCH_PARENT,
-//                    ViewGroup.LayoutParams.WRAP_CONTENT
-//                )
-//
-//                dialog.findViewById<androidx.appcompat.widget.AppCompatTextView>(R.id.cancel)
-//                    .setOnClickListener {
-//                        dialog.dismiss()
-//                    }
-//                dialog.findViewById<androidx.appcompat.widget.AppCompatButton>(R.id.delete)
-//                    .setOnClickListener {
-//                        //delete call item
-//
-//
-//                        dialog.dismiss()
-//                    }
-//                dialog.show()
-//
-//                dialog.dismiss()
-//
-//            }
+            binding.btnDelete.setOnClickListener {
+                deleteCall(position)
+                dialog.dismiss()
+
+            }
+
+            binding.btnDeleteAll.setOnClickListener {
+                deleteAllCalls()
+                dialog.dismiss()
+            }
 
             dialog.show()
             true
@@ -145,6 +125,28 @@ class CallAdapter(private val callList: MutableList<CallModel>) :
     override fun getItemCount(): Int {
         Log.e("CallAdapter", "getItemCount: ${callList.size}")
         return callList.size
+    }
+
+    fun deleteCall(position: Int) {
+        val deletedCall = callList[position]
+        val dbHelper = CallDBHelper(context)
+        val deletedRows = dbHelper.deleteByUser(deletedCall.user)
+
+        if (deletedRows > 0) {
+            callList.removeAt(position)
+            notifyItemRemoved(position)
+            notifyItemRangeChanged(position, itemCount)
+        }
+    }
+
+    fun deleteAllCalls() {
+        val dbHelper = CallDBHelper(context)
+        val deletedRows = dbHelper.deleteAllCall()
+
+        if (deletedRows > 0) {
+            callList.clear()
+            notifyDataSetChanged()
+        }
     }
 
 

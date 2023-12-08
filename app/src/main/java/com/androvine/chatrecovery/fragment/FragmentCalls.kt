@@ -34,7 +34,7 @@ class FragmentCalls : Fragment() {
         val intentFilter = IntentFilter("new_item_call")
         requireActivity().registerReceiver(broadcastReceiver, intentFilter)
 
-        callAdapter = CallAdapter(mutableListOf())
+        callAdapter = CallAdapter(requireContext(), mutableListOf())
         binding.recyclerViewCalls.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = callAdapter
@@ -45,6 +45,7 @@ class FragmentCalls : Fragment() {
     override fun onResume() {
         super.onResume()
         loadCallListData()
+        updateUI()
     }
 
 
@@ -63,9 +64,23 @@ class FragmentCalls : Fragment() {
         override fun onReceive(context: Context?, intent: Intent?) {
             if (intent?.action == "new_item_call") {
                 loadCallListData()
+                updateUI()
             }
         }
     }
+
+    fun updateUI() {
+        val totalCall = callList.size
+
+        if (totalCall == 0) {
+            binding.llEmptyCall.visibility = View.VISIBLE
+            binding.recyclerViewCalls.visibility = View.GONE
+        } else {
+            binding.llEmptyCall.visibility = View.GONE
+            binding.recyclerViewCalls.visibility = View.VISIBLE
+        }
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()
