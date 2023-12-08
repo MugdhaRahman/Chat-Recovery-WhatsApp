@@ -52,11 +52,11 @@ class MessageViewActivity : AppCompatActivity() {
 
     private fun showPopupMenu(view: View) {
         val popupMenu = PopupMenu(this, view)
-        popupMenu.inflate(R.menu.share) // Replace with your menu resource ID
+        popupMenu.inflate(R.menu.share)
 
         popupMenu.setOnMenuItemClickListener { item: MenuItem ->
             when (item.itemId) {
-                R.id.share -> {
+                R.id.actionShare -> {
 
                     val user = intent.getStringExtra("user")
                     val dbHelper = MessageDBHelper(this)
@@ -69,6 +69,12 @@ class MessageViewActivity : AppCompatActivity() {
                 else -> false
             }
         }
+
+        //set menu item icon
+        val menuItem = popupMenu.menu.findItem(R.id.actionShare)
+        menuItem.setIcon(R.drawable.ic_share)
+
+
 
         popupMenu.show()
     }
