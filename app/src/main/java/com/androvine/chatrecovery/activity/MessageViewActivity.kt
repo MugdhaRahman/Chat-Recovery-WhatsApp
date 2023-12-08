@@ -87,7 +87,7 @@ class MessageViewActivity : AppCompatActivity() {
 
     private fun buildShareMessage(user: String, messageList: List<MessageModel>): String {
         val stringBuilder = StringBuilder()
-        stringBuilder.append("Messages for $user:\n\n")
+        stringBuilder.append("Recovered Messages from $user:\n\n")
 
         for (messageModel in messageList) {
             stringBuilder.append("${messageModel.user}: ${messageModel.message}\n")
