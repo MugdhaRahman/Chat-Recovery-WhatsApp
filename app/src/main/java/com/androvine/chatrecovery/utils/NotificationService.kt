@@ -81,7 +81,7 @@ class NotificationService : NotificationListenerService() {
                     "missed voice call"
                 ) && !message.contains("missed video call") && !message.contains("whatsapp") && !message.contains(
                     "backup in progress"
-                )
+                ) && !message.contains("Backup In Progress") && !message.contains("backup complete")
             ) {
 
                 // chat model
