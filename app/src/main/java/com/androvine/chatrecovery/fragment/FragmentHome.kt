@@ -64,6 +64,7 @@ class FragmentHome : Fragment() {
             MessageDBHelper(requireActivity()).getAllMessage().size.toString()
         binding.tvTotalUser.text = userAdapter.itemCount.toString()
 
+        updateUI()
 
     }
 
@@ -103,7 +104,20 @@ class FragmentHome : Fragment() {
         override fun onReceive(context: Context?, intent: Intent?) {
             if (intent?.action == "new_item_message") {
                 loadMessageListData()
+                updateUI()
             }
+        }
+    }
+
+    private fun updateUI() {
+        val totalChats = MessageDBHelper(requireActivity()).getAllMessage().size
+
+        if (totalChats == 0) {
+            binding.llEmptyChatHome.visibility = View.VISIBLE
+            binding.rvChatList.visibility = View.GONE
+        } else {
+            binding.llEmptyChatHome.visibility = View.GONE
+            binding.rvChatList.visibility = View.VISIBLE
         }
     }
 
