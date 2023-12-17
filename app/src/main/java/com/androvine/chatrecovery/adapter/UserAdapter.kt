@@ -39,7 +39,9 @@ class UserAdapter(private val context: Context, private val userList: MutableLis
         val messageModel = userList[position]
 
         holder.binding.tvName.text = messageModel.user
-        holder.binding.tvMessageSummary.text = messageModel.messageSummary
+//        holder.binding.tvMessageSummary.text = messageModel.messageSummary
+        // add last message
+        holder.binding.tvMessageSummary.text = messageModel.message
         holder.binding.messageItem.setOnClickListener {
 
             val intent = Intent(context, MessageViewActivity::class.java)

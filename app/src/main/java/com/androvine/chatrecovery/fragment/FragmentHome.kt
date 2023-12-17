@@ -14,12 +14,10 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.androvine.chatrecovery.adapter.CallAdapter
 import com.androvine.chatrecovery.adapter.UserAdapter
 import com.androvine.chatrecovery.databinding.FragmentHomeBinding
 import com.androvine.chatrecovery.db.CallDBHelper
 import com.androvine.chatrecovery.db.MessageDBHelper
-import com.androvine.chatrecovery.models.CallModel
 import com.androvine.chatrecovery.models.MessageModel
 
 class FragmentHome : Fragment() {
@@ -138,7 +136,6 @@ class FragmentHome : Fragment() {
 
         userAdapter.updateList(uniqueUserMessageList)
     }
-
 
 
     private val broadcastReceiver = object : BroadcastReceiver() {
