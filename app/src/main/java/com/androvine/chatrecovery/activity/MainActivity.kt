@@ -100,6 +100,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+
     @SuppressLint("SetTextI18n")
     @Suppress("DEPRECATION")
     private fun setStatusBar(position: Int) {

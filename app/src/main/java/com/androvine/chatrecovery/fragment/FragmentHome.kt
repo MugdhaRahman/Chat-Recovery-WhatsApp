@@ -5,10 +5,13 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.androvine.chatrecovery.adapter.CallAdapter
@@ -28,7 +31,14 @@ class FragmentHome : Fragment() {
     private lateinit var userAdapter: UserAdapter
 
     private lateinit var callAdapter: CallAdapter
-    private val callList = mutableListOf<CallModel>()
+    private var callList = mutableListOf<CallModel>()
+
+    private var mQueryString: String? = null
+    private val mHandler = Handler(
+        Looper.getMainLooper()
+    )
+
+    private var currentUserList = mutableListOf<MessageModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +46,7 @@ class FragmentHome : Fragment() {
     ): View {
 
 
-        callAdapter = CallAdapter(requireContext(),mutableListOf())
+        callAdapter = CallAdapter(requireContext(), mutableListOf())
 
         val intentFilter = IntentFilter("new_item_message")
         requireActivity().registerReceiver(broadcastReceiver, intentFilter)
@@ -46,7 +56,6 @@ class FragmentHome : Fragment() {
             layoutManager = LinearLayoutManager(requireActivity())
             adapter = userAdapter
         }
-
 
 
         return binding.root
@@ -66,6 +75,46 @@ class FragmentHome : Fragment() {
 
         updateUI()
 
+        setupSearchView()
+
+    }
+
+    private fun setupSearchView() {
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+
+                mQueryString = newText
+                mHandler.postDelayed({
+
+                    startSearch(mQueryString)
+
+                }, 200)
+                return true
+            }
+        })
+    }
+
+    private fun startSearch(query: String?) {
+        if (query.isNullOrEmpty()) {
+            loadCallListData()
+            binding.llEmptyChatHome.visibility = View.GONE
+        } else {
+            val searchResults = currentUserList.filter {
+                it.user.contains(query, true)
+            }
+            if (searchResults.isEmpty()) {
+                binding.llEmptyChatHome.visibility = View.VISIBLE
+                userAdapter.updateList(emptyList())
+            } else {
+                binding.llEmptyChatHome.visibility = View.GONE
+                userAdapter.updateList(searchResults)
+            }
+        }
     }
 
 
@@ -120,6 +169,7 @@ class FragmentHome : Fragment() {
             binding.rvChatList.visibility = View.VISIBLE
         }
     }
+
 
     override fun onDestroy() {
         super.onDestroy()

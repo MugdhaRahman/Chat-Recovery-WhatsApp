@@ -19,6 +19,8 @@ import java.util.Locale
 
 class UserAdapter(private val context: Context, private val userList: MutableList<MessageModel>) :
     RecyclerView.Adapter<UserAdapter.MessageViewHolder>() {
+
+
     override fun onCreateViewHolder(
         viewGroup: ViewGroup,
         viewType: Int
@@ -98,6 +100,8 @@ class UserAdapter(private val context: Context, private val userList: MutableLis
     override fun getItemCount(): Int {
         return userList.size
     }
+
+
 
     fun deleteUser(position: Int) {
         val deletedUser = userList[position]
