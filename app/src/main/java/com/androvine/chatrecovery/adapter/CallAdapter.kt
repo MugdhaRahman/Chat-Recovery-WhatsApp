@@ -77,19 +77,19 @@ class CallAdapter(private val context: Context, private val callList: MutableLis
         }
 
 
-        if (callModel.callType == CallType.UNKNOWN) {
-            try {
-                val nextCallModel = callList[position + 1]
-                if (nextCallModel.callType == CallType.VIDEO) {
-                    holder.binding.ivCallType.setImageResource(R.drawable.ic_video_call)
-                } else if (nextCallModel.callType == CallType.AUDIO) {
-                    holder.binding.ivCallType.setImageResource(R.drawable.ic_calls)
-                }
-
-            } catch (e: IndexOutOfBoundsException) {
-                e.printStackTrace()
-            }
-        }
+//        if (callModel.callType == CallType.UNKNOWN) {
+//            try {
+//                val nextCallModel = callList[position + 1]
+//                if (nextCallModel.callType == CallType.VIDEO) {
+//                    holder.binding.ivCallType.setImageResource(R.drawable.ic_video_call)
+//                } else if (nextCallModel.callType == CallType.AUDIO) {
+//                    holder.binding.ivCallType.setImageResource(R.drawable.ic_calls)
+//                }
+//
+//            } catch (e: IndexOutOfBoundsException) {
+//                e.printStackTrace()
+//            }
+//        }
 
 
         holder.binding.root.setOnLongClickListener { it ->
@@ -114,6 +114,11 @@ class CallAdapter(private val context: Context, private val callList: MutableLis
                 dialog.dismiss()
             }
 
+            binding.btnDeleteByUser.setOnClickListener {
+                deleteByUser(callModel.user)
+                dialog.dismiss()
+            }
+
             dialog.show()
             true
         }
@@ -130,7 +135,7 @@ class CallAdapter(private val context: Context, private val callList: MutableLis
     fun deleteCall(position: Int) {
         val deletedCall = callList[position]
         val dbHelper = CallDBHelper(context)
-        val deletedRows = dbHelper.deleteByUser(deletedCall.user)
+        val deletedRows = dbHelper.deleteCallItem(deletedCall.id)
 
         if (deletedRows > 0) {
             callList.removeAt(position)
@@ -138,6 +143,17 @@ class CallAdapter(private val context: Context, private val callList: MutableLis
             notifyItemRangeChanged(position, itemCount)
         }
     }
+
+    fun deleteByUser(user: String) {
+        val dbHelper = CallDBHelper(context)
+        val deletedRows = dbHelper.deleteByUser(user)
+
+        if (deletedRows > 0) {
+            callList.clear()
+            notifyDataSetChanged()
+        }
+    }
+
 
     fun deleteAllCalls() {
         val dbHelper = CallDBHelper(context)
