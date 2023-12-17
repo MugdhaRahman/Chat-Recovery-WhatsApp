@@ -30,9 +30,6 @@ class FragmentHome : Fragment() {
 
     private lateinit var userAdapter: UserAdapter
 
-    private lateinit var callAdapter: CallAdapter
-    private var callList = mutableListOf<CallModel>()
-
     private var mQueryString: String? = null
     private val mHandler = Handler(
         Looper.getMainLooper()
@@ -45,8 +42,6 @@ class FragmentHome : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-
-        callAdapter = CallAdapter(requireContext(), mutableListOf())
 
         val intentFilter = IntentFilter("new_item_message")
         requireActivity().registerReceiver(broadcastReceiver, intentFilter)
@@ -65,12 +60,12 @@ class FragmentHome : Fragment() {
         super.onResume()
 
         loadMessageListData()
-        loadCallListData()
 
-        binding.tvTotalCalls.text = callAdapter.itemCount.toString()
+        binding.tvTotalCalls.text = CallDBHelper(requireContext()).getAllCall().size.toString()
 
         binding.tvTotalChats.text =
             MessageDBHelper(requireActivity()).getAllMessage().size.toString()
+
         binding.tvTotalUser.text = userAdapter.itemCount.toString()
 
         updateUI()
@@ -101,11 +96,16 @@ class FragmentHome : Fragment() {
 
     private fun startSearch(query: String?) {
         if (query.isNullOrEmpty()) {
-            loadCallListData()
+            loadMessageListData()
             binding.llEmptyChatHome.visibility = View.GONE
         } else {
+
+            Log.e("TAG", "startSearch: " + query)
+
+            Log.e("TAG", "startSearch: " + currentUserList)
+
             val searchResults = currentUserList.filter {
-                it.user.contains(query, true)
+                query in it.user
             }
             if (searchResults.isEmpty()) {
                 binding.llEmptyChatHome.visibility = View.VISIBLE
@@ -134,19 +134,11 @@ class FragmentHome : Fragment() {
         }
 
         val uniqueUserMessageList = latestMessagesMap.values.toList()
+        currentUserList = uniqueUserMessageList.toMutableList()
 
         userAdapter.updateList(uniqueUserMessageList)
     }
 
-    private fun loadCallListData() {
-        val dbHelper = CallDBHelper(requireContext())
-        val callListData = dbHelper.getAllCall()
-
-        callList.clear()
-        callList.addAll(callListData)
-        Log.e("FragmentCalls", "loadCallListData: " + callList.size)
-        callAdapter.updateList(callList)
-    }
 
 
     private val broadcastReceiver = object : BroadcastReceiver() {
