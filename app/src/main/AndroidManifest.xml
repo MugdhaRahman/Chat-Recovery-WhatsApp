@@ -74,6 +74,11 @@
             </intent-filter>
         </service>
 
+        <service
+            android:name=".utils.MediaObService"
+            android:enabled="true"
+            android:exported="false" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
