@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
@@ -15,6 +16,7 @@ import com.androvine.chatrecovery.databinding.FragmentMediaBinding
 import com.androvine.chatrecovery.utils.BuildVersion
 import com.androvine.chatrecovery.utils.PermSAFUtils
 import com.androvine.chatrecovery.utils.PermStorageUtils
+import com.google.android.material.tabs.TabLayout
 
 @Suppress("DEPRECATION")
 class FragmentMedia : Fragment() {
@@ -37,7 +39,41 @@ class FragmentMedia : Fragment() {
 
         setupPermission()
 
+        setupTabs()
+
         return binding.root
+    }
+
+    private fun setupTabs() {
+
+        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+
+                when (tab?.position) {
+                    0 -> {
+
+                        Toast.makeText(requireActivity(), "0", Toast.LENGTH_SHORT).show()
+
+                    }
+
+                    1 -> {
+
+                        Toast.makeText(requireActivity(), "1", Toast.LENGTH_SHORT).show()
+
+                    }
+                }
+
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+                // Handle tab reselect
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+                // Handle tab unselect
+            }
+        })
     }
 
     private fun checkPermissions() {
