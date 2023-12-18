@@ -12,6 +12,7 @@ import com.androvine.chatrecovery.R
 import com.androvine.chatrecovery.activity.MessageViewActivity
 import com.androvine.chatrecovery.databinding.ItemUserBinding
 import com.androvine.chatrecovery.db.MessageDBHelper
+import com.androvine.chatrecovery.fragment.FragmentHome
 import com.androvine.chatrecovery.models.MessageModel
 import java.sql.Date
 import java.text.SimpleDateFormat
@@ -61,6 +62,7 @@ class UserAdapter(private val context: Context, private val userList: MutableLis
 
             holder.binding.tvTime.visibility = View.GONE
             holder.binding.ivDeleteUser.visibility = View.VISIBLE
+
 
             true
         }

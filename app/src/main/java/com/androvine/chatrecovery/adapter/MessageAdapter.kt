@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.androvine.chatrecovery.databinding.BottomsheetCallListBinding
+import com.androvine.chatrecovery.databinding.BottomsheetMessageListBinding
 import com.androvine.chatrecovery.databinding.ItemMessageBinding
 import com.androvine.chatrecovery.db.MessageDBHelper
 import com.androvine.chatrecovery.models.MessageModel
@@ -63,7 +64,7 @@ class MessageAdapter(
 
         holder.binding.cvMsg.setOnLongClickListener {
             val dialog = BottomSheetDialog(it.context)
-            val binding = BottomsheetCallListBinding.inflate(
+            val binding = BottomsheetMessageListBinding.inflate(
                 LayoutInflater.from(it.context),
                 null,
                 false
