@@ -74,15 +74,15 @@ class NotificationService : NotificationListenerService() {
                 }
             }
 
-
             if (!message.contains("new messages") && !message.contains("voice call") && !message.contains(
                     "video call"
                 ) && !message.contains("missed call") && !message.contains("Missed Call") && !message.contains(
                     "missed voice call"
                 ) && !message.contains("missed video call") && !message.contains("whatsapp") && !message.contains(
                     "backup in progress"
-                ) && !message.contains("Backup In Progress") && !message.contains("backup complete")
+                ) && !message.contains("Backup in progress") && !message.contains("backup complete")
                 && !message.contains("Ringing...") && !message.contains("Calling...")
+                && !message.contains("()") && !message.contains(":") && !message.contains("WhatsApp")
             ) {
 
                 // chat model

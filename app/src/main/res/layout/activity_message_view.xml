@@ -20,6 +20,7 @@
             android:layout_marginStart="20dp"
             android:layout_toEndOf="@id/backBtn"
             android:fontFamily="sans-serif-medium"
+            android:maxLines="1"
             android:text="User Name"
             android:textColor="@color/textColor"
             android:textSize="17sp" />
@@ -42,6 +43,7 @@
             android:layout_height="24dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:clickable="true"
             android:focusable="true"
