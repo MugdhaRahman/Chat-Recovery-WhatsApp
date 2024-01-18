@@ -88,11 +88,11 @@ class MainActivity : AppCompatActivity() {
         })
 
 
-        binding.bottomBar.getOrCreateBadge(R.id.n_call).apply {
-            isVisible = true
-            number = 10  //set the missed call count
-            backgroundColor = getColor(R.color.red)
-        }
+//        binding.bottomBar.getOrCreateBadge(R.id.n_call).apply {
+//            isVisible = true
+//            number = 10  //set the missed call count
+//            backgroundColor = getColor(R.color.red)
+//        }
 
         // Remove the badge when no longer need it.
 //        binding.bottomBar.removeBadge(R.id.n_call)

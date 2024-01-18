@@ -128,7 +128,6 @@ class CallAdapter(private val context: Context, private val callList: MutableLis
 
 
     override fun getItemCount(): Int {
-        Log.e("CallAdapter", "getItemCount: ${callList.size}")
         return callList.size
     }
 
