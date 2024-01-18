@@ -1,5 +1,6 @@
 package com.androvine.chatrecovery.fragment
 
+import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -36,6 +37,7 @@ class FragmentHome : Fragment() {
 
     private var currentUserList = mutableListOf<MessageModel>()
 
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
