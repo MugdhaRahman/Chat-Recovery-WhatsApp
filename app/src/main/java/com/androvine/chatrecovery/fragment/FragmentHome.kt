@@ -19,6 +19,7 @@ import com.androvine.chatrecovery.databinding.FragmentHomeBinding
 import com.androvine.chatrecovery.db.CallDBHelper
 import com.androvine.chatrecovery.db.MessageDBHelper
 import com.androvine.chatrecovery.models.MessageModel
+import java.util.Locale
 
 class FragmentHome : Fragment() {
 
@@ -97,14 +98,16 @@ class FragmentHome : Fragment() {
             loadMessageListData()
             binding.llEmptyChatHome.visibility = View.GONE
         } else {
+            val lowercaseQuery = query.lowercase(Locale.ROOT)
 
-            Log.e("TAG", "startSearch: " + query)
+            Log.e("TAG", "startSearch: $lowercaseQuery")
 
-            Log.e("TAG", "startSearch: " + currentUserList)
+            Log.e("TAG", "startSearch: $currentUserList")
 
             val searchResults = currentUserList.filter {
-                query in it.user
+                it.user.lowercase(Locale.ROOT).contains(lowercaseQuery)
             }
+
             if (searchResults.isEmpty()) {
                 binding.llEmptyChatHome.visibility = View.VISIBLE
                 userAdapter.updateList(emptyList())
