@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_alignParentTop="true"
-        android:background="@color/white"
+        android:background="@color/backgroundColor"
         android:elevation="3dp">
 
         <TextView
@@ -38,7 +38,8 @@
             android:clickable="true"
             android:focusable="true"
             android:foreground="?selectableItemBackground"
-            android:src="@drawable/ic_setting" />
+            android:src="@drawable/ic_setting"
+            app:tint="@color/textColorSecondary" />
 
 
     </RelativeLayout>
@@ -52,13 +53,12 @@
         android:layout_below="@id/toolbar_layout" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        app:itemHorizontalTranslationEnabled="true"
-        android:textAlignment="viewEnd"
-        android:background="@color/white"
-        android:layout_alignParentBottom="true"
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:textAlignment="viewEnd"
+        app:itemHorizontalTranslationEnabled="true"
         app:menu="@menu/bottom_nav_menu" />
 
 

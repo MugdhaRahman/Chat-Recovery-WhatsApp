@@ -35,7 +35,7 @@
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
+        android:theme="@style/Theme.ChatRecovery"
         tools:targetApi="31">
         <activity
             android:name=".activity.MessageViewActivity"
