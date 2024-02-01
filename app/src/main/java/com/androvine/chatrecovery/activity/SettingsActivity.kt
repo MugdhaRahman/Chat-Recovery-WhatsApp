@@ -64,14 +64,14 @@ class SettingsActivity : AppCompatActivity() {
                     startActivity(
                         Intent(
                             Intent.ACTION_VIEW,
-                            Uri.parse("market://details?id=$appPackageName")
+                            android.net.Uri.parse("market://details?id=$appPackageName")
                         )
                     )
                 } catch (anfe: android.content.ActivityNotFoundException) {
                     startActivity(
                         Intent(
                             Intent.ACTION_VIEW,
-                            Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")
+                            android.net.Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")
                         )
                     )
                 }
@@ -81,11 +81,12 @@ class SettingsActivity : AppCompatActivity() {
             privacyPolicyPref?.setOnPreferenceClickListener {
                 val browserIntent = Intent(
                     Intent.ACTION_VIEW,
-                    Uri.parse(Constants.privacyPolicyUrl)
+                    android.net.Uri.parse(Constants.privacyPolicyUrl)
                 )
                 startActivity(browserIntent)
                 true
             }
+
 
             val darkThemePref =
                 findPreference<androidx.preference.ListPreference>("pref_dark_theme")
