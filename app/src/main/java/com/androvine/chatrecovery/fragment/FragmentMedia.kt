@@ -4,6 +4,8 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,12 +13,14 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import com.androvine.chatrecovery.R
 import com.androvine.chatrecovery.databinding.FragmentMediaBinding
 import com.androvine.chatrecovery.utils.BuildVersion
 import com.androvine.chatrecovery.utils.PermSAFUtils
 import com.androvine.chatrecovery.utils.PermStorageUtils
 import com.google.android.material.tabs.TabLayout
+import java.io.File
 
 @Suppress("DEPRECATION")
 class FragmentMedia : Fragment() {
@@ -29,6 +33,12 @@ class FragmentMedia : Fragment() {
     private lateinit var permSAFUtils: PermSAFUtils
     private lateinit var permStorageUtils: PermStorageUtils
 
+
+    private lateinit var imagePath: String
+    private lateinit var videoPath: String
+    private lateinit var storagePath: String
+    private lateinit var folderName: String
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -40,6 +50,10 @@ class FragmentMedia : Fragment() {
         setupPermission()
 
         setupTabs()
+
+        setupFolderPaths()
+
+        setupRV()
 
         return binding.root
     }
@@ -54,12 +68,16 @@ class FragmentMedia : Fragment() {
                     0 -> {
 
                         Toast.makeText(requireActivity(), "0", Toast.LENGTH_SHORT).show()
-
+                        binding.rvPhotos.visibility = View.VISIBLE
+                        binding.rvVideos.visibility = View.GONE
                     }
 
                     1 -> {
 
                         Toast.makeText(requireActivity(), "1", Toast.LENGTH_SHORT).show()
+
+                        binding.rvPhotos.visibility = View.GONE
+                        binding.rvVideos.visibility = View.VISIBLE
 
                     }
                 }
@@ -142,11 +160,33 @@ class FragmentMedia : Fragment() {
 
     }
 
+
+    private fun setupRV() {
+        binding.rvPhotos.apply {
+            layoutManager = GridLayoutManager(requireActivity(), 3)
+        }
+
+
+  }
+
+    private fun setupFolderPaths() {
+        folderName = getString(R.string.app_name)
+        storagePath = if (BuildVersion.isAndroidR()) {
+            "${Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)}${File.separator}$folderName"
+        } else {
+            "${Environment.getExternalStorageDirectory()}${File.separator}$folderName"
+        }
+        imagePath = "$storagePath/images"
+        videoPath = "$storagePath/videos"
+    }
+
+
+
+
     override fun onResume() {
         super.onResume()
         checkPermissions()
     }
-
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
