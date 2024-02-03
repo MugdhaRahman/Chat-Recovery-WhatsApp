@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.androvine.chatrecovery.activity.MainActivity
 import com.androvine.chatrecovery.databinding.RecoverMediaItemBinding
 import com.bumptech.glide.Glide
-import java.util.Locale
 
 class MediaAdapter(
     private val mediaList: MutableList<MainActivity.RecoveredMedia>
@@ -37,24 +36,6 @@ class MediaAdapter(
             mediaHolder.binding.ivVideo.visibility = View.GONE
         }
 
-    }
-
-
-    private fun getFormattedSize(size: Long): String {
-        val fileSize = size.toDouble()
-        return when {
-            fileSize < 1024 * 1024 -> String.format(
-                Locale.getDefault(), "%.2f KB", fileSize / 1024
-            )
-
-            fileSize < 1024 * 1024 * 1024 -> String.format(
-                Locale.getDefault(), "%.2f MB", fileSize / (1024 * 1024)
-            )
-
-            else -> String.format(
-                Locale.getDefault(), "%.2f GB", fileSize / (1024 * 1024 * 1024)
-            )
-        }
     }
 
 
