@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,12 +14,15 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.androvine.chatrecovery.R
+import com.androvine.chatrecovery.activity.MainActivity
+import com.androvine.chatrecovery.adapter.MediaAdapter
 import com.androvine.chatrecovery.databinding.FragmentMediaBinding
+import com.androvine.chatrecovery.permissionMVVM.RecoverMediaViewModel
 import com.androvine.chatrecovery.utils.BuildVersion
+import com.androvine.chatrecovery.utils.MediaFilesRepository
 import com.androvine.chatrecovery.utils.PermSAFUtils
 import com.androvine.chatrecovery.utils.PermStorageUtils
 import com.google.android.material.tabs.TabLayout
-import java.io.File
 
 @Suppress("DEPRECATION")
 class FragmentMedia : Fragment() {
@@ -32,16 +34,18 @@ class FragmentMedia : Fragment() {
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<Intent>
     private lateinit var permSAFUtils: PermSAFUtils
     private lateinit var permStorageUtils: PermStorageUtils
+    private lateinit var repository: MediaFilesRepository
+    private lateinit var viewModel: RecoverMediaViewModel
 
 
-    private lateinit var imagePath: String
-    private lateinit var videoPath: String
-    private lateinit var storagePath: String
-    private lateinit var folderName: String
+    private val imageList: MutableList<MainActivity.RecoveredMedia> = mutableListOf()
+
+    private lateinit var recoverMediaAdapter: MediaAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
+
 
         setupIntentLauncher()
 
@@ -51,7 +55,7 @@ class FragmentMedia : Fragment() {
 
         setupTabs()
 
-        setupFolderPaths()
+        getFiles()
 
         setupRV()
 
@@ -161,31 +165,47 @@ class FragmentMedia : Fragment() {
     }
 
 
+    private fun getFiles() {
+
+        repository = MediaFilesRepository(requireActivity().applicationContext)
+        viewModel = RecoverMediaViewModel(repository)
+        recoverMediaAdapter = MediaAdapter(mutableListOf())
+
+        viewModel.getFiles()
+
+        viewModel.imageList.observe(requireActivity()) {
+            imageList.clear()
+            imageList.addAll(it)
+            Log.e("TAG", "imageList: " + imageList.size)
+            loadImage()
+
+        }
+
+    }
+
+    private fun loadImage() {
+        recoverMediaAdapter.updateList(imageList)
+
+//        if (imageList.isEmpty()) {
+//            binding.emptyState.visibility = View.VISIBLE
+//        } else {
+//            binding.emptyState.visibility = View.GONE
+//        }
+    }
+
     private fun setupRV() {
         binding.rvPhotos.apply {
             layoutManager = GridLayoutManager(requireActivity(), 3)
+            adapter = recoverMediaAdapter
         }
 
-
-  }
-
-    private fun setupFolderPaths() {
-        folderName = getString(R.string.app_name)
-        storagePath = if (BuildVersion.isAndroidR()) {
-            "${Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)}${File.separator}$folderName"
-        } else {
-            "${Environment.getExternalStorageDirectory()}${File.separator}$folderName"
-        }
-        imagePath = "$storagePath/images"
-        videoPath = "$storagePath/videos"
     }
-
-
 
 
     override fun onResume() {
         super.onResume()
         checkPermissions()
+        loadImage()
     }
 
     override fun onRequestPermissionsResult(

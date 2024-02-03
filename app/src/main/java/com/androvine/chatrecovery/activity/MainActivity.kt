@@ -6,14 +6,12 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
-import android.os.Environment
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.androvine.chatrecovery.R
 import com.androvine.chatrecovery.adapter.ViewPagerAdapter
 import com.androvine.chatrecovery.databinding.ActivityMainBinding
-import com.androvine.chatrecovery.utils.BuildVersion
-import com.androvine.chatrecovery.utils.MediaObService
+import com.androvine.chatrecovery.utils.ChatRecoveryMediaObService
 import java.io.File
 
 class MainActivity : AppCompatActivity() {
@@ -56,9 +54,7 @@ class MainActivity : AppCompatActivity() {
         intentFilter.addAction("new_item_call")
         registerReceiver(broadcastReceiver, intentFilter)
 
-        createDir()
-
-        val intent = Intent(this, MediaObService::class.java)
+        val intent = Intent(this, ChatRecoveryMediaObService::class.java)
         startService(intent)
 
     }
@@ -130,43 +126,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun createDir() {
-        createDirectoryImage()
-        createDirectoryVideo()
-    }
-
-    private fun createDirectoryImage() {
-        val storagePath: String
-        val folderName = resources.getString(R.string.app_name)
-        storagePath = if (BuildVersion.isAndroidR()) {
-            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)
-                .toString() + File.separator + folderName
-        } else {
-            Environment.getExternalStorageDirectory().toString() + File.separator + folderName
-        }
-        val sb = "$storagePath/images"
-        val file = File(sb)
-        if (!file.exists() && !file.mkdirs()) {
-            Log.e("DirectoryLog :: ", "Problem creating folder")
-        }
-    }
-
-    private fun createDirectoryVideo() {
-        val storagePath: String
-        val folderName = resources.getString(R.string.app_name)
-        storagePath = if (BuildVersion.isAndroidR()) {
-            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)
-                .toString() + File.separator + folderName
-        } else {
-            Environment.getExternalStorageDirectory().toString() + File.separator + folderName
-        }
-        val sb = "$storagePath/videos"
-        val file = File(sb)
-        if (!file.exists() && !file.mkdirs()) {
-            Log.e("DirectoryLog :: ", "Problem creating folder")
-        }
-    }
-
     private val broadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             if (intent?.action == "new_item_message") {
@@ -184,6 +143,13 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         unregisterReceiver(broadcastReceiver)
+    }
+
+    data class RecoveredMedia(
+        val uri: String, val type: MediaType
+    )
+    enum class MediaType {
+        VIDEO, IMAGE
     }
 
 

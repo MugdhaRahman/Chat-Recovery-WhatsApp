@@ -93,7 +93,7 @@
         </service>
 
         <service
-            android:name=".utils.MediaObService"
+            android:name=".utils.ChatRecoveryMediaObService"
             android:enabled="true"
             android:exported="false" />
 
