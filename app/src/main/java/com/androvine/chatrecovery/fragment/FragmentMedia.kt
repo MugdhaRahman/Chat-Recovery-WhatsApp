@@ -222,6 +222,7 @@ class FragmentMedia : Fragment() {
         super.onResume()
         checkPermissions()
         loadImage()
+        binding.tabLayout.getTabAt(0)?.select()
     }
 
     override fun onRequestPermissionsResult(

@@ -13,7 +13,6 @@ class MediaAdapter(
 ) :
     RecyclerView.Adapter<MediaAdapter.ViewHolder>() {
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = RecoverMediaItemBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
@@ -37,7 +36,6 @@ class MediaAdapter(
         }
 
     }
-
 
     override fun getItemCount(): Int {
         return mediaList.size
