@@ -4,7 +4,7 @@
     android:layout_height="170dp">
 
     <ImageView
-        android:id="@+id/statusImage"
+        android:id="@+id/recoveredMedia"
         android:layout_width="match_parent"
         android:layout_height="170dp"
         android:layout_marginStart="5dp"

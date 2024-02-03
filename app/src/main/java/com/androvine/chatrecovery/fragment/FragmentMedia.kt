@@ -39,6 +39,7 @@ class FragmentMedia : Fragment() {
 
 
     private val imageList: MutableList<MainActivity.RecoveredMedia> = mutableListOf()
+    private val videoList: MutableList<MainActivity.RecoveredMedia> = mutableListOf()
 
     private lateinit var recoverMediaAdapter: MediaAdapter
 
@@ -71,17 +72,16 @@ class FragmentMedia : Fragment() {
                 when (tab?.position) {
                     0 -> {
 
-                        Toast.makeText(requireActivity(), "0", Toast.LENGTH_SHORT).show()
                         binding.rvPhotos.visibility = View.VISIBLE
                         binding.rvVideos.visibility = View.GONE
+                        loadImage()
                     }
 
                     1 -> {
 
-                        Toast.makeText(requireActivity(), "1", Toast.LENGTH_SHORT).show()
-
                         binding.rvPhotos.visibility = View.GONE
                         binding.rvVideos.visibility = View.VISIBLE
+                        loadVideo()
 
                     }
                 }
@@ -181,6 +181,17 @@ class FragmentMedia : Fragment() {
 
         }
 
+        viewModel.videoList.observe(requireActivity()) {
+            videoList.clear()
+            videoList.addAll(it)
+            Log.e("TAG", "videoList: " + videoList.size)
+            loadVideo()
+        }
+
+    }
+
+    private fun loadVideo() {
+        recoverMediaAdapter.updateList(videoList)
     }
 
     private fun loadImage() {
@@ -195,6 +206,11 @@ class FragmentMedia : Fragment() {
 
     private fun setupRV() {
         binding.rvPhotos.apply {
+            layoutManager = GridLayoutManager(requireActivity(), 3)
+            adapter = recoverMediaAdapter
+        }
+
+        binding.rvVideos.apply {
             layoutManager = GridLayoutManager(requireActivity(), 3)
             adapter = recoverMediaAdapter
         }
