@@ -8,7 +8,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
@@ -192,16 +191,22 @@ class FragmentMedia : Fragment() {
 
     private fun loadVideo() {
         recoverMediaAdapter.updateList(videoList)
+
+        if (videoList.isEmpty()) {
+            binding.llNoMedia.visibility = View.VISIBLE
+        } else {
+            binding.llNoMedia.visibility = View.GONE
+        }
     }
 
     private fun loadImage() {
         recoverMediaAdapter.updateList(imageList)
 
-//        if (imageList.isEmpty()) {
-//            binding.emptyState.visibility = View.VISIBLE
-//        } else {
-//            binding.emptyState.visibility = View.GONE
-//        }
+        if (imageList.isEmpty()) {
+            binding.llNoMedia.visibility = View.VISIBLE
+        } else {
+            binding.llNoMedia.visibility = View.GONE
+        }
     }
 
     private fun setupRV() {
@@ -225,6 +230,7 @@ class FragmentMedia : Fragment() {
         binding.tabLayout.getTabAt(0)?.select()
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
