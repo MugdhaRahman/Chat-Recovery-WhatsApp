@@ -93,6 +93,15 @@ class MediaAdapter(
         return mediaList.size
     }
 
+    fun deleteFile(position: Int) {
+        val file = File(mediaList[position].uri)
+        if (file.exists()) {
+            file.delete()
+        }
+        mediaList.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
     fun updateList(list: List<MainActivity.RecoveredMedia>) {
         mediaList.clear()
         mediaList.addAll(list)
