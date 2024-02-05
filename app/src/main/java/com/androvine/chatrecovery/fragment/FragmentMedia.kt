@@ -168,7 +168,7 @@ class FragmentMedia : Fragment() {
 
         repository = MediaFilesRepository(requireActivity().applicationContext)
         viewModel = RecoverMediaViewModel(repository)
-        recoverMediaAdapter = MediaAdapter(mutableListOf())
+        recoverMediaAdapter = MediaAdapter(requireContext(), mutableListOf())
 
         viewModel.getFiles()
 
