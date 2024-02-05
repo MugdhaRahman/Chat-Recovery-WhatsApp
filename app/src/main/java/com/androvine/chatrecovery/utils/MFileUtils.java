@@ -50,12 +50,8 @@ public class MFileUtils {
                 fileChannel2 = new FileOutputStream(file2).getChannel();
                 fileChannel2.transferFrom(channel, 0, channel.size());
                 Log.d("mediaSaved", "media saved");
-                if (channel != null) {
-                    channel.close();
-                }
-                if (fileChannel2 != null) {
-                    fileChannel2.close();
-                }
+                channel.close();
+                fileChannel2.close();
             } catch (Throwable th) {
                 FileChannel fileChannel3 = fileChannel2;
                 fileChannel2 = channel;
@@ -70,10 +66,6 @@ public class MFileUtils {
             }
         } catch (Throwable th2) {
             fileChannel = null;
-            if (fileChannel2 != null) {
-            }
-            if (fileChannel != null) {
-            }
             throw th2;
         }
     }
@@ -107,10 +99,10 @@ public class MFileUtils {
     }
 
     public static void copyFile(Context context, Uri srcUri, Uri destUri) {
-        try {
-            InputStream is = context.getContentResolver().openInputStream(srcUri);
-            OutputStream os = context.getContentResolver().openOutputStream(destUri);
-
+        try (
+                InputStream is = context.getContentResolver().openInputStream(srcUri);
+                OutputStream os = context.getContentResolver().openOutputStream(destUri)
+        ) {
             if (is == null || os == null) return;
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -123,12 +115,11 @@ public class MFileUtils {
                 }
             }
 
-            is.close();
-            os.close();
             Log.d("mediaSaved", "media saved via SAF");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
 }
