@@ -148,6 +148,7 @@ class MainActivity : AppCompatActivity() {
     data class RecoveredMedia(
         val uri: String, val type: MediaType
     )
+
     enum class MediaType {
         VIDEO, IMAGE
     }

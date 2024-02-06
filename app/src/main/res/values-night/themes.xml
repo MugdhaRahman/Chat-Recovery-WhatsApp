@@ -12,7 +12,7 @@
 
     </style>
 
-    <style name="Theme.PDFReaderPro.Splash" parent="Theme.ChatRecovery">
+    <style name="Theme.ChatRecovery.Splash" parent="Theme.ChatRecovery">
         <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="o_mr1">shortEdges
         </item>
         <item name="android:windowTranslucentStatus">true</item>
