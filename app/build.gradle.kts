@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.androvine.chatrecovery"
+    namespace = "com.mrapps.chatrecovery"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.androvine.chatrecovery"
+        applicationId = "com.mrapps.chatrecovery"
         minSdk = 24
         //noinspection EditedTargetSdkVersion
         targetSdk = 34
