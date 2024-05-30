@@ -13,8 +13,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.mrapps.chatrecovery.R
 import com.mrapps.chatrecovery.adapter.UserAdapter
 import com.mrapps.chatrecovery.databinding.FragmentHomeBinding
 import com.mrapps.chatrecovery.db.CallDBHelper
@@ -53,6 +55,7 @@ class FragmentHome : Fragment() {
             adapter = userAdapter
         }
 
+        setupBar()
 
         return binding.root
     }
@@ -61,18 +64,40 @@ class FragmentHome : Fragment() {
         super.onResume()
 
         loadMessageListData()
-
-        binding.tvTotalCalls.text = CallDBHelper(requireContext()).getAllCall().size.toString()
-
         binding.tvTotalChats.text =
-            MessageDBHelper(requireActivity()).getAllMessage().size.toString()
-
-        binding.tvTotalUser.text = userAdapter.itemCount.toString()
+            userAdapter.itemCount.toString()
 
         updateUI()
 
         setupSearchView()
 
+    }
+
+    private fun setupBar() {
+        binding.bar.addData(
+            1, MessageDBHelper(requireActivity()).getAllMessage().size.toDouble(),
+            getColor(requireContext(), R.color.colorPrimary), "Messages"
+        )
+
+        binding.bar.addData(
+            2, CallDBHelper(requireContext()).getAllCall().size.toDouble(),
+            getColor(requireContext(), R.color.colorSecondary), "Calls"
+        )
+
+        binding.bar.setLegendView(binding.legend)
+        binding.legend.setLegendHorizontal = false
+        binding.legend.legendTextColor = getColor(requireContext(), R.color.textColor)
+        binding.legend.legendValueTextColor = getColor(requireContext(), R.color.textGrey)
+        binding.legend.legendTextSize = 16.5f
+        binding.legend.legendValueTextSize = 13.5f
+        binding.legend.legendDotHeight = 25f
+        binding.legend.legendDotWidth = 40f
+        binding.legend.legendDotCornerRadius = 10f
+        binding.legend.legendValueShow = true
+        binding.legend.legendValue = true
+        binding.legend.legendItemSpace = 25f
+        binding.legend.legendValueSpacing = 25f
+        binding.legend.legendDotSpacing = 25f
     }
 
     private fun setupSearchView() {
