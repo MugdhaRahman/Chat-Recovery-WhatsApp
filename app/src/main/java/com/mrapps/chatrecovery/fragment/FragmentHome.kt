@@ -88,14 +88,14 @@ class FragmentHome : Fragment() {
         binding.legend.setLegendHorizontal = false
         binding.legend.legendTextColor = getColor(requireContext(), R.color.textColor)
         binding.legend.legendValueTextColor = getColor(requireContext(), R.color.textGrey)
-        binding.legend.legendTextSize = 16.5f
-        binding.legend.legendValueTextSize = 13.5f
+        binding.legend.legendTextSize = 16f
+        binding.legend.legendValueTextSize = 13f
         binding.legend.legendDotHeight = 25f
         binding.legend.legendDotWidth = 40f
         binding.legend.legendDotCornerRadius = 10f
         binding.legend.legendValueShow = true
         binding.legend.legendValue = true
-        binding.legend.legendItemSpace = 25f
+        binding.legend.legendItemSpaceVertical = 30.5f
         binding.legend.legendValueSpacing = 25f
         binding.legend.legendDotSpacing = 25f
     }
