@@ -55,7 +55,6 @@ class FragmentHome : Fragment() {
             adapter = userAdapter
         }
 
-        setupBar()
 
         return binding.root
     }
@@ -71,6 +70,7 @@ class FragmentHome : Fragment() {
 
         setupSearchView()
 
+        setupBar()
     }
 
     private fun setupBar() {

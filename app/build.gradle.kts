@@ -61,6 +61,6 @@ dependencies {
 
     implementation ("com.github.bumptech.glide:glide:4.13.1")
 
-    implementation("com.github.MugdhaRahman:horizontalstackedbarview:0.2")
+    implementation("com.github.MugdhaRahman:horizontalstackedbarview:0.3")
 
 }
