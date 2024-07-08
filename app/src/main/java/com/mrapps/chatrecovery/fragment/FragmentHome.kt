@@ -45,7 +45,6 @@ class FragmentHome : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-
         val intentFilter = IntentFilter("new_item_message")
         requireActivity().registerReceiver(broadcastReceiver, intentFilter)
 
